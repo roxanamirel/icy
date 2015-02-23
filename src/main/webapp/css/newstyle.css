@@ -1,0 +1,24 @@
+.homelink{
+	display: inline-block;
+	margin-right:10px;
+}
+
+.nav-list li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    font-size: 12px;
+    line-height: 26px;
+    }
+    
+.grill a {
+	display:inline-block;
+	
+	 border-radius: 13px;
+    display: inline-block;
+    height: 150px;
+    padding: 5px 20px;
+    width: 100px;
+}
+
+.grill a:hover {
+   background:#bfe9fa;
+}

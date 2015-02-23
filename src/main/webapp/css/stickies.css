@@ -1,0 +1,294 @@
+body{
+	color: #555555;
+	background: #fcfcfc;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+a, a:visited {
+	color:#0196e3;
+	text-decoration:none;
+	outline:none;
+}
+
+a:hover{
+	text-decoration:underline;
+}
+
+#header {
+	background:#f0f0f0;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: -webkit-gradient(linear, left top, left bottom, from(#bababa), to(#9c9c9c)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #bababa,  #9c9c9c); /* for firefox 3.6+ */
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#bababa', endColorstr='#9c9c9c'); /* for IE */
+    -webkit-box-shadow: 0 2px 3px #999;
+    -moz-box-shadow: 0 2px 3px #999;
+    box-shadow: 0 2px 3px #999;
+    z-index: 9999;
+}
+
+#footer {
+	background:#f0f0f0;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background: -webkit-gradient(linear, left top, left bottom, from(#cbcbcb), to(#9c9c9c)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #cbcbcb,  #9c9c9c); /* for firefox 3.6+ */
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#cbcbcb', endColorstr='#9c9c9c'); /* for IE */
+    font-size: smaller;
+    padding: 5px;
+    z-index: 9999;
+}
+
+.title{
+	margin: 2px;
+	padding: 2px;
+	font-size:1.5em;
+	font-weight: bold;
+}
+
+.info {
+	padding: 2px;
+	margin: 2px;
+	font-size: 0.7em;
+}
+
+#newNoteButton{
+	position: absolute;
+	top: 25px;
+	left: 5px;
+}
+
+#taskboard {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	border:0px;
+	width: 100%;
+	height: 500px;
+}
+
+/* Button clean gray
+*******************************************************************************/
+a.clean-gray {
+  background: #eee;
+  background: -moz-linear-gradient(0% 100% 90deg, #ccc, #eee);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#ccc));
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #bbb;
+  -moz-border-radius: 13px;
+  -webkit-border-radius: 13px;
+  border-radius: 13px;
+  color: #333;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 4px 0;
+  text-align: center;
+  text-shadow: 0 1px 0 #eee;
+  width: 100px;
+  z-index: 9999;
+}
+
+a.clean-gray:hover {
+  background: #ddd;
+  background: -moz-linear-gradient(0% 100% 90deg, #bbb, #ddd);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ddd), to(#bbb));
+  border: 1px solid #bbb;
+  border-bottom: 1px solid #999;
+  cursor: pointer;
+  text-shadow: 0 1px 0 #ddd;
+}
+
+a.clean-gray:active {
+  border: 1px solid #aaa;
+  border-bottom: 1px solid #888;
+  -moz-box-shadow: inset 0 0 5px 2px #aaa, 0 1px 0 0 #eee;
+  -webkit-box-shadow: inset 0 0 5px 2px #aaa, 0 1px 0 0 #eee;
+  box-shadow: inset 0 0 5px 2px #aaa, 0 1px 0 0 #eee;
+}
+
+/* Submit button
+*******************************************************************************/
+button.submit_button {
+  background: #7fbf4d;
+  background: -moz-linear-gradient(0% 100% 90deg,#63a62f, #7fbf4d);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#7fbf4d), to(#63a62f));
+  border: 1px solid #63a62f;
+  border-bottom: 1px solid #5b992b;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: inset 0 1px 0 0 #96ca6d;
+  -webkit-box-shadow: inset 0 1px 0 0 #96ca6d;
+  box-shadow: inset 0 1px 0 0 #96ca6d;
+  color: #fff;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 4px 8px 4px 8px;
+  text-align: center;
+  text-shadow: 0 -1px 0 #4c9021;
+}
+
+button.submit_button:hover {
+  background: #76b347;
+  background: -moz-linear-gradient(0% 100% 90deg,#5e9e2e, #76b347);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#76b347), to(#5e9e2e));
+  -moz-box-shadow: inset 0 1px 0 0 #8dbf67;
+  -webkit-box-shadow: inset 0 1px 0 0 #8dbf67;
+  box-shadow: inset 0 1px 0 0 #8dbf67;
+  cursor: pointer;
+}
+
+button.submit_button:active {
+  border: 1px solid #5b992b;
+  border-bottom: 1px solid #538c27;
+  -moz-box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eee;
+  -webkit-box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eee;
+  box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eee;
+}
+
+/* Tags
+*******************************************************************************/
+.tags {
+	line-height: 20px;
+}
+.tag {
+  background: #3b88d8;
+  background: -moz-linear-gradient(0% 100% 90deg, #377ad0, #52a8e8);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#52a8e8), to(#377ad0));
+  border-top: 1px solid #4081af;
+  border-right: 1px solid #2e69a3;
+  border-bottom: 1px solid #20559a;
+  border-left: 1px solid #2e69a3;
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  -moz-box-shadow: inset 0 1px 0 0 #72b9eb, 0 1px 2px 0 #b3b3b3;
+  -webkit-box-shadow: inset 0 1px 0 0 #72b9eb, 0 1px 2px 0 #b3b3b3;
+  color: #fff;
+  font-family: "lucida grande", sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  padding: 2px 5px;
+  margin-right: 2px;
+  margin-top: 10px;
+  text-align: center;
+  text-shadow: 0 -1px 1px #3275bc;
+  width: 112px;
+  -webkit-background-clip: padding-box;
+}
+
+/* Note styles
+*******************************************************************************/
+.note{
+	min-height: 65px;
+	color: #333;
+	padding:10px;
+	width: 175px;
+	position:absolute;
+	overflow:hidden;
+	cursor:move;
+	font-family:Trebuchet MS,Tahoma,Myriad Pro,Arial,Verdana,sans-serif;
+	font-size:22px;
+	text-align: left;
+	-moz-box-shadow:2px 2px 0 #DDDDDD;
+	-webkit-box-shadow:2px 2px 0 #DDDDDD;
+	box-shadow:2px 2px 0 #DDDDDD;
+}
+
+#fancy_ajax .note{	cursor:default; }
+
+div#fancy_div { background: none;}
+
+/* Three styles for the notes: */
+.yellow{
+	background-color:#FDFB8C;
+	border:1px solid #DEDC65;	
+}
+
+.blue{
+	background-color:#A6E3FC;
+	border:1px solid #75C5E7;	
+}
+
+.green{
+	background-color:#A5F88B;
+	border:1px solid #98E775;	
+}
+
+.date{
+	margin: 2px;
+	margin-bottom: 4px;
+	color:#666666;
+	font-family:Arial,Verdana,sans-serif;
+	font-size:12px;
+}
+
+.tags{
+	color:#666666;
+	font-family:Arial,Verdana,sans-serif;
+	font-size:12px;
+}
+
+h3.popupTitle{
+	border-bottom:1px solid #DDDDDD;
+	color:#666666;
+	font-size:24px;
+	font-weight:normal;
+	padding:0 0 5px;
+}
+
+#noteData{
+	/* The input form in the pop-up: */
+	height:200px;
+	margin:30px 0 0 200px;
+	width:350px;
+}
+
+.note-form label{
+	display:block;
+	font-size:10px;
+	font-weight:bold;
+	letter-spacing:1px;
+	color: #666;
+	text-transform:uppercase;
+	padding-bottom:3px;
+}
+
+.note-form textarea, .note-form input[type=text]{
+	background-color:#FCFCFC;
+	border:1px solid #AAAAAA;
+	font-family:Arial,Verdana,sans-serif;
+	font-size:16px;
+	height:60px;
+	padding:5px;
+	width:300px;
+	margin-bottom:10px;
+}
+
+.note-form input[type=text]{ height:auto; }
+
+.color{
+	cursor:pointer;
+	float:left;
+	height:10px;
+	margin:0 5px 0 0;
+	width:10px;
+}
+
+#note-submit{ margin:20px auto; }
+

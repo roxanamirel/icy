@@ -1,0 +1,10 @@
+--a new database schema with the name "catalog" must be created
+--root and password for db connection must be set in database.properties from 
+src/main/databases/mysql/META-INF/spring/database.properties
+-run the program with:Run as -> Maven build..->
+Goals: clean tomcat7:run -P mysql
+access http://localhost:8080/catalog-online
+
+--an error appears in the js folder, but the application works anyway
+
+
