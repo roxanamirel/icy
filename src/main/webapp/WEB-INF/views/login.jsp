@@ -146,9 +146,9 @@ h1:before
 						type="password" name='j_password' class="input-block-level"
 						placeholder="Parola" required>
 					<button class="btn btn-large btn-primary" type="submit"
-						name="submit" value="Submit">Conectati-va</button>
+						name="submit" value="Submit">Connect</button>
 					<a href='${pageContext.request.contextPath}/user/sendMail'>
-						V-ati uitat parola? </a>
+						Forgot password?? </a>
 				</form>
 			</div>
 	
