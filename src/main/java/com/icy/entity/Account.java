@@ -1,6 +1,8 @@
 package com.icy.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -100,7 +102,7 @@ public class Account implements java.io.Serializable {
 		this.newPassword = newPassword;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name = "AuthId", nullable = false)
 	public Authority getAuthority() {
 		return authority;

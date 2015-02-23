@@ -10,6 +10,7 @@
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
 			<property name="hibernate.connection.charSet" value="UTF-8" />
+			
 		</properties>
 	</persistence-unit>
 </persistence>

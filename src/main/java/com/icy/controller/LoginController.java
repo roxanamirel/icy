@@ -1,5 +1,6 @@
 package com.icy.controller;
 
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.icy.entity.Account;
+import com.icy.entity.Authority;
+import com.icy.service.AccountService;
 import com.icy.service.impl.EmailSender;
 import com.icy.utility.ContactData;
 
@@ -26,6 +30,8 @@ import com.icy.utility.ContactData;
 public class LoginController {
 	@Autowired
 	ServletContext servletContext;
+	@Inject
+	protected AccountService accountService;
 	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
 

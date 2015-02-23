@@ -43,19 +43,11 @@ public class AuthenticationController extends
 
 	}
 
-	private void insertDummyAccount(){
-		Authority auth = new Authority();
-		auth.setAuthority("user");
-		Account acountTest = new Account("icy", "icy", auth);
-		accountService.insert(acountTest);
-		
-		
-	}
+	
 	@Override
 	protected UserDetails retrieveUser(String username,
 			UsernamePasswordAuthenticationToken authentication)
 			throws AuthenticationException {
-		//insertDummyAccount();
 		String password = (String) authentication.getCredentials();
 		
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();

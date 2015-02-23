@@ -122,6 +122,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
+	@Transactional
 	public Account insert(Account account) {
 		
 		return accountRepository.save(account);

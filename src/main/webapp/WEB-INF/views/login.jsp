@@ -124,7 +124,7 @@ h1:before
 
 		<c:if test="${not empty param.login_error}">
 			<div class="alert alert-error">
-				<b> ERROR: </b> Username or password is wrong.
+				<b> ERROR: </b> Invalid username or password.
 				
 			</div>
 		</c:if>
