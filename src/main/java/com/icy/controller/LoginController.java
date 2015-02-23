@@ -91,11 +91,11 @@ public class LoginController {
 		EmailSender mm = (EmailSender) ctx.getBean("mailMail");
 		
 		try {
-			mm.sendMail(emailAdr, "rroxanaioana@gmail.com", subject,
+			mm.sendMail(emailAdr, "ichallengeyu@gmail.com", subject,
 					message);
-			model.addAttribute("status","Mesajul a fost trimis cu succes.Incercam sa va raspundem cat mai repede.");
+			model.addAttribute("status","Message has been sent.We will get back to you.");
 		} catch (Throwable ex) {
-			model.addAttribute("status","Mesajul nu a putut fi trimis. Verificati conexiunea la internet.");
+			model.addAttribute("status","Message could not be sent.Check you connection.");
 			ex.printStackTrace();
 
 		}

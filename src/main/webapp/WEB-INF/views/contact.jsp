@@ -104,13 +104,11 @@ input[type=submit] {
 				<Strong>Contact:</Strong>
 			</legend>
 			<strong><br />Contact us at:</strong> <br /> <br /> <strong>
-				-Administrator sistem</strong> (Colegiul National "Emil Racovita"): <a>rroxanaioana@gmail.com</a>
-			<br /> <br /> <strong> -Pentru suport tehnic</strong> (echipa de
-			dezvoltare a aplicatiei) completati urmatorul formular: <br />
-			<br />
+				 <a>ichallengeyu@gmail.com</a>
+			<br /> <br /> <strong> Or fill in </strong> 
 			<br />
 			<div class="form_settings">
-				<label class="email" for="name"><strong>NUME</strong></label>
+				<label class="email" for="name"><strong>NAME</strong></label>
 				<div class="controls">
 				<form:errors path="name" cssClass="error help-inline inline"
 						element="span" id="error"/>
@@ -129,7 +127,7 @@ input[type=submit] {
 				</div>
 			</div>
 			<div class="form_settings">
-				<label class="control-label" for="subject"><strong>SUBIECT</strong></label>
+				<label class="control-label" for="subject"><strong>SUBJECT</strong></label>
 				<div class="controls">
 				<form:errors path="subject" cssClass="error help-inline inline"
 						element="span" id="error"/>
@@ -139,7 +137,7 @@ input[type=submit] {
 				</div>
 			</div>
 			<div class="form_settings">
-				<label class="control-label" for="message"><strong>MESAJ</strong></label>
+				<label class="control-label" for="message"><strong>MESSAGE</strong></label>
 				<div class="controls">
 				<form:errors path="message" cssClass="error help-inline inline"
 						element="span" id="error" />
@@ -151,7 +149,7 @@ input[type=submit] {
 
 			
                    <input type="submit" class="btn btn-primary"
-                        value="Trimite mesaj">&nbsp;
+                        value="Send">&nbsp;
                     
 					
                

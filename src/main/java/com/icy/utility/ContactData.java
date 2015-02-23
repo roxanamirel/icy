@@ -4,14 +4,14 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class ContactData {
-	@NotEmpty(message="Acest camp este obligatoriu")
+	@NotEmpty(message="Mandatory field")
 	private String name;
-	@NotEmpty(message="Acest camp este obligatoriu")
-	@Email(message="Acest email este nu este corect")
+	@NotEmpty(message="Mandatory field")
+	@Email(message="Invalid field")
 	private String email;
-	@NotEmpty(message="Acest camp este obligatoriu")
+	@NotEmpty(message="Mandatory field")
 	private String message;
-	@NotEmpty(message="Acest camp este obligatoriu")
+	@NotEmpty(message="Mandatory field")
     private String subject;
 	
 	public ContactData() {

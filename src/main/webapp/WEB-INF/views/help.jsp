@@ -15,19 +15,9 @@ body {
 }
 </style>
 
-		<title>Wall</title>
+		<h1>Help</h1>
 
-		<body>
-			<h1>Welcome to your wall</h1>
-		</body>
-		<link rel="stylesheet"
-			href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-		<link rel="stylesheet"
-			href="${pageContext.request.contextPath}/css/bootstrap/bootstrap-responsive.css">
-		</head>
-		<body>
 
-		</body>
 
 	</c:param>
 </c:import>

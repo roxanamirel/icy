@@ -85,7 +85,7 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom {
 				.getRequiredWebApplicationContext(servletContext);
 		EmailSender mm = (EmailSender) ctx.getBean("mailMail");
 		try {
-			mm.sendMail("rroxanaioana@gmail.com", mail,
+			mm.sendMail("ichallengeyu@gmail.com", mail,
 					"Credentials ICY", mesaj);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
