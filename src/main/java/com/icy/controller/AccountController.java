@@ -40,25 +40,25 @@ public class AccountController {
 	public @ModelAttribute
 	void register(Model model) {
 		User user = new User();
-		model.addAttribute(parent);
+		model.addAttribute(user);
 
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerOnSubmit(@Valid Parent parent,
+	public String registerOnSubmit(@Valid User User,
 			BindingResult bindingResult, Model model) {
-		LOGGER.debug("create parent={}", parent);
-		parentService.getExceptions().clear();
+		LOGGER.debug("create User={}", User);
+		userService.getExceptions().clear();
 		if (bindingResult.hasErrors()) {
 			LOGGER.warn("validation error={}", bindingResult.getModel());
 			model.addAllAttributes(bindingResult.getModel());
 			model.addAttribute("status",
-					setStatus(parentService.getExceptions()));
+					setStatus(UserService.getExceptions()));
 			return "/user/register";
 		}
 
-		parentService.insert(parent);
-		if (!parentService.getExceptions().isEmpty()) {
+		UserService.insert(user);
+		if (!userService.getExceptions().isEmpty()) {
 			model.addAttribute("status",
 					setStatus(parentService.getExceptions()));
 			return "redirect:/user/register";
@@ -90,32 +90,32 @@ public class AccountController {
 
 		if (user.getUsername() == null || user.getConfirmPassword() == null
 				|| user.getNewPassword() == null || user.getPassword() == null) {
-			model.addAttribute("status", "Toate campurile sunt obligatorii.");
+			model.addAttribute("status", "All fields are mandatory");
 			return "/user/editPassword";
 		}
 
 		if (user.getUsername().isEmpty() || user.getConfirmPassword().isEmpty()
 				|| user.getNewPassword().isEmpty()
 				|| user.getPassword().isEmpty()) {
-			model.addAttribute("status", "Toate campurile sunt obligatorii.");
+			model.addAttribute("status", "All fields are mandatory");
 			return "/user/editPassword";
 		}
 		com.icy.entity.User dbUser = userService.findByUsername(user
 				.getUsername());
 		if (dbUser == null) {
-			model.addAttribute("status", "Acest user nu este inregistrat. ");
+			model.addAttribute("status", "User not registered ");
 			return "/user/editPassword";
 		}
 		 String encryptedPassword =
 				 messageDigestPasswordEncoder.encodePassword(user.getPassword(), null);
 		if (!encryptedPassword.equals(dbUser.getPassword())) {
 			model.addAttribute("status",
-					"Nu ati introdus corect parola curenta!");
+					"Password not found!");
 			return "/user/editPassword";
 		}
 
 		if (!user.getConfirmPassword().equals(user.getNewPassword())) {
-			model.addAttribute("status", "Nu ati confirmat corect parola!");
+			model.addAttribute("status", "Password does not match");
 			return "/user/editPassword";
 		}
 		dbUser.setPassword(user.getNewPassword());
@@ -125,7 +125,7 @@ public class AccountController {
 			return "/user/editPassword";
 		} else {
 			model.addAttribute("sendMail_success",
-					"Noile credentialele v-au fost transmise prin e-mail!");
+					"An email with your account has been sent!");
 			return "/login";
 		}
 
@@ -189,7 +189,7 @@ public class AccountController {
 			userService.changePassword(user);
 			if (userService.exceptions().isEmpty()) {
 				model.addAttribute("sendMail_success",
-						"Noile credentialele v-au fost transmise prin e-mail!");
+						"An email containing your account  details has been sent!");
 				return "/login";
 			} else {
 				model.addAttribute("status",
@@ -197,7 +197,7 @@ public class AccountController {
 			}
 		} else {
 			model.addAttribute("status",
-					"Nu exista niciun utilizator cu aceasta adresa de email/username");
+					"Username or password not found");
 		}
 		return "user/sendMail";
 

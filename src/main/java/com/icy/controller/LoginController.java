@@ -84,7 +84,7 @@ public class LoginController {
 		}
 		String emailAdr = contactData.getEmail();
 		String message = contactData.getMessage();
-		message = message +"\n NUME: "+ contactData.getName();
+		message = message +"\n NAME: "+ contactData.getName();
 		String subject = contactData.getSubject();
 		WebApplicationContext ctx = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(servletContext);
@@ -95,7 +95,7 @@ public class LoginController {
 					message);
 			model.addAttribute("status","Message has been sent.We will get back to you.");
 		} catch (Throwable ex) {
-			model.addAttribute("status","Message could not be sent.Check you connection.");
+			model.addAttribute("status","Message could not be sent.");
 			ex.printStackTrace();
 
 		}

@@ -65,7 +65,7 @@ public class AccountServiceImpl implements AccountService {
 			pattern = Pattern.compile(EMAIL_PATTERN);
 			matcher = pattern.matcher(user.getUsername());
 			if (!matcher.matches()) {
-				exceptions.add("Emailul nu este valid!!*! "
+				exceptions.add("Invalid email!!*! "
 						+ user.getUsername());
 				return;
 			}
@@ -81,7 +81,7 @@ public class AccountServiceImpl implements AccountService {
 
 			if (mode == 1) {// UPDATE USER
 				if (u != null && u.getId() != user.getId()) {
-					exceptions.add("Acest email este deja folosit. "
+					exceptions.add("Email already used. "
 							+ u.getUsername());
 				}
 
