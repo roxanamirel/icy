@@ -41,7 +41,7 @@ public class LoginController {
 		
 		model.addAttribute("username", name);
 		model.addAttribute("message",
-				"Spring Security login + database example");
+				"Spring Security login and database example");
 		return "hello";
 
 	}
