@@ -1,170 +1,445 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:import url="/WEB-INF/views/common/layout_login.jsp"
-	charEncoding="UTF-8">
-	<c:param name="title" value="HOME" />
-	<c:param name="body">
-		<html>
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<title>Login Page</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
 
+<title>ICY - I Challenge You</title>
 
-<div id="fb-root"></div>
-<script>
-	(function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id))
-			return;
-		js = d.createElement(s);
-		js.id = id;
-		js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-</script>
+<!-- Bootstrap Core CSS -->
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
 
-<c:set var="status" value="" scope="session" />
+<!-- Fonts -->
+<link
+	href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/css/animate.css"
+	rel="stylesheet" />
+<!-- Squad theme CSS -->
+<link href="${pageContext.request.contextPath}/css/style.css"
+	rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/color/default.css"
+	rel="stylesheet" />
 
-<style type="text/css">
-body {
-	padding-top: 60px;
-	/* 60px to make the container go all the way to the bottom of the topbar */
-	background-image:'';
-	background-repeat: no-repeat;
-}
-
-#login {
-	box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, .2), 0
-		3px 0 #fff, 0 4px 0 rgba(0, 0, 0, .2), 0 6px 0 #fff, 0 7px 0
-		rgba(0, 0, 0, .2);
-}
-
-#login:before {
-	content: '';
-	position: absolute;
-	z-index: -1;
-	border: 1px dashed #ccc;
-	top: 5px;
-	bottom: 5px;
-	left: 5px;
-	right: 5px;
-	-moz-box-shadow: 0 0 0 1px #fff;
-	-webkit-box-shadow: 0 0 0 1px #fff;
-	box-shadow: 0 0 0 1px #fff;
-}
-
-
-h1
-{
-    text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
-    text-transform: uppercase;
-    text-align: center;
-    color: #666;
-    margin: 0 0 30px 0;
-    letter-spacing: 4px;
-    font: normal 26px/1 Verdana, Helvetica;
-    position: relative;
-}
-
-h1:after, h1:before
-{
-    background-color: #777;
-    content: "";
-    height: 1px;
-    position: absolute;
-    top: 15px;
-    width: 50px;   
-}
-
-h1:after
-{ 
-    background-image: -webkit-gradient(linear, left top, right top, from(#777), to(#fff));
-    background-image: -webkit-linear-gradient(left, #777, #fff);
-    background-image: -moz-linear-gradient(left, #777, #fff);
-    background-image: -ms-linear-gradient(left, #777, #fff);
-    background-image: -o-linear-gradient(left, #777, #fff);
-    background-image: linear-gradient(left, #777, #fff);      
-    right: 0;
-}
-
-h1:before
-{
-    background-image: -webkit-gradient(linear, right top, left top, from(#777), to(#fff));
-    background-image: -webkit-linear-gradient(right, #777, #fff);
-    background-image: -moz-linear-gradient(right, #777, #fff);
-    background-image: -ms-linear-gradient(right, #777, #fff);
-    background-image: -o-linear-gradient(right, #777, #fff);
-    background-image: linear-gradient(right, #777, #fff);
-    left: 0;
-}
-
-.table-row {
-	display: table-row;
-}
-
-.cell1,.cell2,.cell3 {
-	display: table-cell;
-}
-
-.cell2 {
-	width: 700px;
-}
-
-.cell1 {
-	width: 400px;
-}
-
-.cell3 {
-	width: 100px;
-}
-</style>
 </head>
-<body onload='document.f.j_username.focus();' background="${pageContext.request.contextPath}/img/cner.jpg" style="width:100%;height:100%;"
->
- 
-	<div class=container>
 
-		<c:if test="${not empty param.login_error}">
-			<div class="alert alert-error">
-				<b> ERROR: </b> Invalid username or password.
-				
-			</div>
-		</c:if>
+<body onload='document.f.j_username.focus();' id="page-top"
+	data-spy="scroll" data-target=".navbar-custom">
 
+	<c:if test="${not empty param.login_error}">
+		<div class="alert alert-error">
+			<b> ERROR: </b> Invalid username or password.
 
-
-		<div class='table-row'>
-			<div class="cell1"></div>
-			<div class="cell2">
-				<br /> <br /> <br /> <br /> <br />
-
-				<form class="form-signin" name='f'
-					action="<c:url value='/resources/j_spring_security_check' />"
-					method='POST' id="login">
-					<h1>Login in</h1>
-
-					<input type="text" name='j_username' class="input-block-level"
-						placeholder="Nume utilizator" required> <input
-						type="password" name='j_password' class="input-block-level"
-						placeholder="Parola" required>
-					<button class="btn btn-large btn-primary" type="submit"
-						name="submit" value="Submit">Connect</button>
-					<a href='${pageContext.request.contextPath}/user/sendMail'>
-						Forgot password?? </a>
-				</form>
-			</div>
-	
-
-
+		</div>
+	</c:if>
+	<!-- Preloader -->
+	<div id="preloader">
+		<div id="load"></div>
 	</div>
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	
+
+	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header page-scroll">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-main-collapse">
+					<i class="fa fa-bars"></i>
+				</button>
+				<a class="navbar-brand" href="login.jsp">
+					<h1>ICY</h1>
+				</a>
+
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div
+				class="collapse navbar-collapse navbar-right navbar-main-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#intro">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#service">Service</a></li>
+					<li><a href="#contact">Contact</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Example menu</a></li>
+							<li><a href="#">Example menu</a></li>
+							<li><a href="#">Example menu</a></li>
+						</ul></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+
+	<!-- Section: intro -->
+	<section id="intro" class="intro">
+
+		<table width="100%">
+			<tr>
+				<td>
+					<div class="slogan">
+						<h2>
+							I CHALLENGE <span class="text_color">YOU</span>
+						</h2>
+						<h4>WE ARE A TEAM TRYING TO MAKE AN AWESOME APP FOR YOU</h4>
+					</div>
+				</td>
+				<td align="right">
+					<!-- Login part -->
+
+					<div class='table-row'>
+						<div class="cell2">
+							<form class="form-signin" name='f'
+								action="<c:url value='/resources/j_spring_security_check' />"
+								method='POST' id="login">
+
+								<input type="text" name='j_username' class="input-block-level"
+									placeholder="Username" required> <input type="password"
+									name='j_password' class="input-block-level"
+									placeholder="Password" required>
+								<button class="btn btn-large btn-primary" type="submit"
+									name="submit" value="Submit">Connect</button>
+									<br/>
+								<a href='${pageContext.request.contextPath}/user/sendMail'>
+									Forgotten password? </a>
+							</form>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<!-- End of login -->
+
+		<div class="page-scroll">
+			<a href="#service" class="btn btn-circle"> <i
+				class="fa fa-angle-double-down animated"></i>
+			</a>
+		</div>
+	</section>
+	<!-- /Section: intro -->
+
+	<!-- Section: about -->
+	<section id="about" class="home-section text-center">
+		<div class="heading-about">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-lg-offset-2">
+						<div class="wow bounceInDown" data-wow-delay="0.4s">
+							<div class="section-heading">
+								<h2>About us</h2>
+								<i class="fa fa-2x fa-angle-down"></i>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-2 col-lg-offset-5">
+					<hr class="marginbot-50">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6 col-sm-3 col-md-3">
+					<div class="wow bounceInUp" data-wow-delay="0.2s">
+						<div class="team boxed-grey">
+							<div class="inner">
+								<h5>Roxy</h5>
+								<div class="avatar">
+									<img src="${pageContext.request.contextPath}/img/team/1.jpg"
+										alt="" class="img-responsive img-circle" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-3 col-md-3">
+					<div class="wow bounceInUp" data-wow-delay="0.5s">
+						<div class="team boxed-grey">
+							<div class="inner">
+								<h5>Lou</h5>
+								<div class="avatar">
+									<img src="${pageContext.request.contextPath}/img/team/2.jpg"
+										alt="" class="img-responsive img-circle" />
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-3 col-md-3">
+					<div class="wow bounceInUp" data-wow-delay="0.8s">
+						<div class="team boxed-grey">
+							<div class="inner">
+								<h5>Ric</h5>
+								<div class="avatar">
+									<img src="${pageContext.request.contextPath}/img/team/3.jpg"
+										alt="" class="img-responsive img-circle" />
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-3 col-md-3">
+					<div class="wow bounceInUp" data-wow-delay="1s">
+						<div class="team boxed-grey">
+							<div class="inner">
+								<h5>Nidhi</h5>
+								<div class="avatar">
+									<img src="${pageContext.request.contextPath}/img/team/4.jpg"
+										alt="" class="img-responsive img-circle" />
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- /Section: about -->
+
+
+	<!-- Section: services -->
+	<section id="service" class="home-section text-center bg-gray">
+
+		<div class="heading-about">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-lg-offset-2">
+						<div class="wow bounceInDown" data-wow-delay="0.4s">
+							<div class="section-heading">
+								<h2>Our Services</h2>
+								<i class="fa fa-2x fa-angle-down"></i>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2 col-lg-offset-5">
+					<hr class="marginbot-50">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3 col-md-3">
+					<div class="wow fadeInLeft" data-wow-delay="0.2s">
+						<div class="service-box">
+							<div class="service-icon">
+								<img
+									src="${pageContext.request.contextPath}/img/icons/service-icon-1.png"
+									alt="" />
+							</div>
+							<div class="service-desc">
+								<h5>Challenges Design</h5>
+								<p>Our creative team is designing the most awesome
+									challenges for you.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-md-3">
+					<div class="wow fadeInUp" data-wow-delay="0.2s">
+						<div class="service-box">
+							<div class="service-icon">
+								<img
+									src="${pageContext.request.contextPath}/img/icons/service-icon-2.png"
+									alt="" />
+							</div>
+							<div class="service-desc">
+								<h5>Web Design</h5>
+								<p>We are developing a web page where you can create your
+									own challenges and participate in your friends' challenges .</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-md-3">
+					<div class="wow fadeInUp" data-wow-delay="0.2s">
+						<div class="service-box">
+							<div class="service-icon">
+								<img
+									src="${pageContext.request.contextPath}/img/icons/service-icon-3.png"
+									alt="" />
+							</div>
+							<div class="service-desc">
+								<h5>Companies involvment</h5>
+								<p>We are trying to get companies to enter our ecosystem and
+									add challenges and prizes for you .</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-md-3">
+					<div class="wow fadeInRight" data-wow-delay="0.2s">
+						<div class="service-box">
+							<div class="service-icon">
+								<img
+									src="${pageContext.request.contextPath}/img/icons/service-icon-4.png"
+									"alt="" />
+							</div>
+							<div class="service-desc">
+								<h5>Cloud System</h5>
+								<p>We are currently operating in the cloud - Heroku.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- /Section: services -->
+
+
+
+
+	<!-- Section: contact -->
+	<section id="contact" class="home-section text-center">
+		<div class="heading-contact">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-lg-offset-2">
+						<div class="wow bounceInDown" data-wow-delay="0.4s">
+							<div class="section-heading">
+								<h2>Get in touch</h2>
+								<i class="fa fa-2x fa-angle-down"></i>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-2 col-lg-offset-5">
+					<hr class="marginbot-50">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="boxed-grey">
+						<form id="contact-form">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="name"> Name</label> <input type="text"
+											class="form-control" id="name" placeholder="Enter name"
+											required="required" />
+									</div>
+									<div class="form-group">
+										<label for="email"> Email Address</label>
+										<div class="input-group">
+											<span class="input-group-addon"><span
+												class="glyphicon glyphicon-envelope"></span> </span> <input
+												type="email" class="form-control" id="email"
+												placeholder="Enter email" required="required" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="subject"> Subject</label> <select id="subject"
+											name="subject" class="form-control" required="required">
+											<option value="na" selected="">Choose One:</option>
+											<option value="service">General Customer Service</option>
+											<option value="suggestions">Suggestions</option>
+											<option value="product">Product Support</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="name"> Message</label>
+										<textarea name="message" id="message" class="form-control"
+											rows="9" cols="25" required="required" placeholder="Message"></textarea>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<button type="submit" class="btn btn-skin pull-right"
+										id="btnContactUs">Send Message</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="widget-contact">
+						<h5>Main Office</h5>
+
+						<address>
+							<strong>ICY, Inc.</strong><br> Beaulieu <br> Rennes,
+							35700<br> <abbr title="Phone">P:</abbr> (065) 2968012
+						</address>
+
+						<address>
+							<strong>Email</strong><br> <a href="mailto:#">ichallengeyu@gmail.com</a>
+						</address>
+						<address>
+							<strong>We're on social networks</strong><br>
+							<ul class="company-social">
+								<li class="social-facebook"><a href="#" target="_blank"><i
+										class="fa fa-facebook"></i></a></li>
+								<li class="social-twitter"><a href="#" target="_blank"><i
+										class="fa fa-twitter"></i></a></li>
+								<li class="social-dribble"><a href="#" target="_blank"><i
+										class="fa fa-dribbble"></i></a></li>
+								<li class="social-google"><a href="#" target="_blank"><i
+										class="fa fa-google-plus"></i></a></li>
+							</ul>
+						</address>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+	<!-- /Section: contact -->
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-lg-12">
+					<div class="wow shake" data-wow-delay="0.4s">
+						<div class="page-scroll marginbot-30">
+							<a href="#intro" id="totop" class="btn btn-circle"> <i
+								class="fa fa-angle-double-up animated"></i>
+							</a>
+						</div>
+					</div>
+					<p>&copy;Copyright 2014 - Squad. All rights reserved.</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Core JavaScript Files -->
+	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js" /></script>
+	<script
+		src="${pageContext.request.contextPath}/js/jquery.easing.min.js" /></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.scrollTo.js" /></script>
+	<script src="${pageContext.request.contextPath}/js/wow.min.js" /></script>
+	<!-- Custom Theme JavaScript -->
+	<script src="${pageContext.request.contextPath}/js/custom.js" /></script>
 
 </body>
-		</html>
-	</c:param>
-</c:import>
+
+</html>
+
+

@@ -22,9 +22,17 @@
 		<intercept-url pattern="/login*" access="permitAll()" />
 		<intercept-url pattern="/user/wall" access="hasRole('user')" />
 		<intercept-url pattern="/**" access="isAuthenticated()" /> <!-- change to isAuthenticated() -->
+		<intercept-url pattern="/css/**" filters="none" />
 		<intercept-url pattern="/css/bootstrap/**" filters="none" />
-		<intercept-url pattern="/js/bootstrap/**" filters="none" />
+		<intercept-url pattern="/js/**" filters="none" />
 		<intercept-url pattern="/img/**" filters="none" />
+		<intercept-url pattern="/color/**" filters="none" />
+		<intercept-url pattern="/font-awesome/**" filters="none" />
+		<intercept-url pattern="/font-awesome/css/**" filters="none" />
+		<intercept-url pattern="/font-awesome/fonts/**" filters="none" />
+		<intercept-url pattern="/font-awesome/less/**" filters="none" />
+		<intercept-url pattern="/font-awesome/scss/**" filters="none" />
+		<intercept-url pattern="/fonts/**" filters="none" />
 		<session-management>
 			<!-- configuration for 1st login restriction -->
 			<!-- <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" 
@@ -45,22 +53,22 @@
 		class="org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder">
 		<beans:constructor-arg value="sha-256" />
 	</beans:bean>
-	
+
 	<!-- Configure Authentication mechanism -->
 	<authentication-manager>
 		<authentication-provider>
-		<!--   <password-encoder ref="encoder" /> -->
+			<!-- <password-encoder ref="encoder" /> -->
 			<jdbc-user-service data-source-ref="dataSource"
 
 				users-by-username-query="
 		      select username,password,enabled
 		      from account where username=?"
-		      
-		      	authorities-by-username-query="
+
+				authorities-by-username-query="
 		      select u.username, a.authority_name
 				from account u, authority a
 				where u.auth_id = a.id and username=?" />
-				 
+
 		</authentication-provider>
 	</authentication-manager>
 
