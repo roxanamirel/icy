@@ -25,7 +25,7 @@ public class Account implements java.io.Serializable {
 	private String username;
 	private String password;
 	private boolean enabled;
-	private String newPassword;
+	private String email;
 	private String confirmPassword;
 	private Authority authority;
 
@@ -93,13 +93,13 @@ public class Account implements java.io.Serializable {
 		this.confirmPassword = confirmPassword;
 	}
 
-	@Transient
-	public String getNewPassword() {
-		return newPassword;
+	@Column(name = "Email", nullable = false)
+	public String getEmail() {
+		return email;
 	}
 
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)

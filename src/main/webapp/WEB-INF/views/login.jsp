@@ -16,9 +16,6 @@
 	rel="stylesheet" type="text/css" />
 
 <!-- Fonts -->
-<link
-	href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/css/animate.css"
 	rel="stylesheet" />
 <!-- Squad theme CSS -->
@@ -26,18 +23,13 @@
 	rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/color/default.css"
 	rel="stylesheet" />
-
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="css/register.css" />
 </head>
 
 <body onload='document.f.j_username.focus();' id="page-top"
 	data-spy="scroll" data-target=".navbar-custom">
 
-	<c:if test="${not empty param.login_error}">
-		<div class="alert alert-error">
-			<b> ERROR: </b> Invalid username or password.
-
-		</div>
-	</c:if>
 	<!-- Preloader -->
 	<div id="preloader">
 		<div id="load"></div>
@@ -88,7 +80,9 @@
 						<h2>
 							I CHALLENGE <span class="text_color">YOU</span>
 						</h2>
-						<h4>WE ARE A TEAM TRYING TO MAKE AN AWESOME APP FOR YOU</h4>
+						<h4>WE ARE A TEAM TRYING TO MAKE AN AWESOME APP FOR YOU. </h4>
+						<h4><a id="modal_trigger" href="#modal">REGISTER</a> now for an unforgetable experience</h4>
+					
 					</div>
 				</td>
 				<td align="right">
@@ -96,6 +90,13 @@
 
 					<div class='table-row'>
 						<div class="cell2">
+							<c:if test="${not empty param.login_error}">
+								<div class="alert alert-error">
+									<a href="#" class="close" data-dismiss="alert">&times;</a>
+									<p style="color: red">Invalid username or password.</p>
+								</div>
+							</c:if>
+							
 							<form class="form-signin" name='f'
 								action="<c:url value='/resources/j_spring_security_check' />"
 								method='POST' id="login">
@@ -106,16 +107,69 @@
 									placeholder="Password" required>
 								<button class="btn btn-large btn-primary" type="submit"
 									name="submit" value="Submit">Connect</button>
-									<br/>
-								<a href='${pageContext.request.contextPath}/user/sendMail'>
+								<br /> <a
+									href='${pageContext.request.contextPath}/user/sendMail'>
 									Forgotten password? </a>
-							</form>
+							</form><!-- End of login cell2 -->
 						</div>
-					</div>
+						</div>			
 				</td>
 			</tr>
 		</table>
-		<!-- End of login -->
+		<!-- REGISTER POP UP -->
+
+							<div id="modal" class="popupContainer" style="display: none;">
+								<header class="popupHeader">
+									<span class="header_title">Login</span> <span
+										class="modal_close"><i class="fa fa-times"></i></span>
+								</header>
+
+								<section class="popupBody">
+									<!-- Social Login -->
+									<div class="social_login">
+										<div class="">
+											<a href="#" class="social_box fb"> <span class="icon"><i
+													class="fa fa-facebook"></i></span> <span class="icon_title">Connect
+													with Facebook</span>
+
+											</a> <a href="#" class="social_box google"> <span
+												class="icon"><i class="fa fa-google-plus"></i></span> <span
+												class="icon_title">Connect with Google</span>
+											</a>
+										</div>
+
+										<div class="action_btns">
+											<div class="one_half last">
+												<a href="#" id="register_form" class="btn">Sign up</a>
+											</div>
+										</div>
+									</div>
+									<!-- Register Form -->
+									<div class="user_register">
+										<form>
+											<label>Full Name</label> <input type="text" /> <br /> <label>Email
+												Address</label> <input type="email" /> <br /> <label>Password</label>
+											<input type="password" /> <br />
+
+											<div class="checkbox">
+												<input id="send_updates" type="checkbox" /> <label
+													for="send_updates">Send me occasional email updates</label>
+											</div>
+
+											<div class="action_btns">
+												<div class="one_half">
+													<a href="#" class="btn back_btn"><i
+														class="fa fa-angle-double-left"></i> Back</a>
+												</div>
+												<div class="one_half last">
+													<a href="#" class="btn btn_red">Register</a>
+												</div>
+											</div>
+										</form>
+									</div>
+								</section>
+							</div>
+						<!-- End of register -->
 
 		<div class="page-scroll">
 			<a href="#service" class="btn btn-circle"> <i
@@ -290,7 +344,7 @@
 							<div class="service-icon">
 								<img
 									src="${pageContext.request.contextPath}/img/icons/service-icon-4.png"
-									"alt="" />
+									alt="" />
 							</div>
 							<div class="service-desc">
 								<h5>Cloud System</h5>
@@ -303,10 +357,6 @@
 		</div>
 	</section>
 	<!-- /Section: services -->
-
-
-
-
 	<!-- Section: contact -->
 	<section id="contact" class="home-section text-center">
 		<div class="heading-contact">
@@ -317,7 +367,6 @@
 							<div class="section-heading">
 								<h2>Get in touch</h2>
 								<i class="fa fa-2x fa-angle-down"></i>
-
 							</div>
 						</div>
 					</div>
@@ -325,7 +374,6 @@
 			</div>
 		</div>
 		<div class="container">
-
 			<div class="row">
 				<div class="col-lg-2 col-lg-offset-5">
 					<hr class="marginbot-50">
@@ -376,16 +424,13 @@
 						</form>
 					</div>
 				</div>
-
 				<div class="col-lg-4">
 					<div class="widget-contact">
 						<h5>Main Office</h5>
-
 						<address>
 							<strong>ICY, Inc.</strong><br> Beaulieu <br> Rennes,
 							35700<br> <abbr title="Phone">P:</abbr> (065) 2968012
 						</address>
-
 						<address>
 							<strong>Email</strong><br> <a href="mailto:#">ichallengeyu@gmail.com</a>
 						</address>
@@ -402,15 +447,12 @@
 										class="fa fa-google-plus"></i></a></li>
 							</ul>
 						</address>
-
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</section>
 	<!-- /Section: contact -->
-
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -422,12 +464,11 @@
 							</a>
 						</div>
 					</div>
-					<p>&copy;Copyright 2014 - Squad. All rights reserved.</p>
+
 				</div>
 			</div>
 		</div>
 	</footer>
-
 	<!-- Core JavaScript Files -->
 	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js" /></script>
@@ -438,8 +479,44 @@
 	<!-- Custom Theme JavaScript -->
 	<script src="${pageContext.request.contextPath}/js/custom.js" /></script>
 
+	<!-- Register pop up -->
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+	<script type="text/javascript">
+		$("#modal_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+
+		$(function() {
+			// Calling Login Form
+			$("#login_form").click(function() {
+				$(".social_login").hide();
+				$(".user_login").show();
+				return false;
+			});
+
+			// Calling Register Form
+			$("#register_form").click(function() {
+				$(".social_login").hide();
+				$(".user_register").show();
+				$(".header_title").text('Register');
+				return false;
+			});
+
+			// Going back to Social Forms
+			$(".back_btn").click(function() {
+				$(".user_login").hide();
+				$(".user_register").hide();
+				$(".social_login").show();
+				$(".header_title").text('Login');
+				return false;
+			});
+
+		});
+	</script>
+
 </body>
-
 </html>
-
 
