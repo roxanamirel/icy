@@ -2,4 +2,4 @@ target
 database.properties
 database.xml
 persistence.xml
-
+applicationContext.xml
