@@ -27,7 +27,7 @@ public class Account implements java.io.Serializable {
     @NotEmpty
 	private String username;
 	private String password;
-	private boolean enabled;
+	private boolean enabled = true;
 	private String email;
 	private String confirmPassword;
 	private Authority authority;
