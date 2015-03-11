@@ -26,6 +26,7 @@
 		<intercept-url pattern="/css/**" filters="none" />
 		<intercept-url pattern="/css/bootstrap/**" filters="none" />
 		<intercept-url pattern="/js/**" filters="none" />
+		<intercept-url pattern="/video/**" filters="none" />
 		<intercept-url pattern="/img/**" filters="none" />
 		<intercept-url pattern="/color/**" filters="none" />
 		<intercept-url pattern="/font-awesome/**" filters="none" />

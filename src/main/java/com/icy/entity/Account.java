@@ -12,11 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
-
 
 @Entity
 @Table(name = "account")
@@ -24,10 +21,11 @@ public class Account implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int user_id;
-    @NotEmpty
+	@NotEmpty
 	private String username;
 	private String password;
 	private boolean enabled = true;
+	private boolean receiveNewsletter = true;
 	private String email;
 	private String confirmPassword;
 	private Authority authority;
@@ -39,14 +37,14 @@ public class Account implements java.io.Serializable {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
-	
+
 	}
 
 	public Account(String username, String password, Authority authority) {
 		this.authority = authority;
 		this.username = username;
 		this.password = password;
-		
+
 	}
 
 	@Id
@@ -69,7 +67,6 @@ public class Account implements java.io.Serializable {
 		this.username = username;
 	}
 
-
 	@Column(name = "Password", nullable = false, length = 128)
 	public String getPassword() {
 		return this.password;
@@ -78,7 +75,7 @@ public class Account implements java.io.Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	@Column(name = "Enabled", nullable = true)
 	public boolean isEnabled() {
 		return enabled;
@@ -87,6 +84,7 @@ public class Account implements java.io.Serializable {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+
 	@Transient
 	public String getConfirmPassword() {
 		return confirmPassword;
@@ -105,7 +103,7 @@ public class Account implements java.io.Serializable {
 		this.email = email;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "AuthId", nullable = false)
 	public Authority getAuthority() {
 		return authority;
@@ -113,6 +111,15 @@ public class Account implements java.io.Serializable {
 
 	public void setAuthority(Authority authority) {
 		this.authority = authority;
+	}
+
+	@Column(name = "ReceiveNewsletter", nullable = true)
+	public boolean isReceiveNewsletter() {
+		return receiveNewsletter;
+	}
+
+	public void setReceiveNewsletter(boolean receiveNewsletter) {
+		this.receiveNewsletter = receiveNewsletter;
 	}
 
 }

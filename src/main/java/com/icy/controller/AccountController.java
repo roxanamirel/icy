@@ -45,15 +45,13 @@ public class AccountController {
 
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerOnSubmit( Account account,
+	public String registerOnSubmit(  @Valid Account account,
 			BindingResult bindingResult, Model model) {
 		LOGGER.debug("create User={}", account);
 		userService.exceptions().clear();
 		if (bindingResult.hasErrors()) {
 			LOGGER.warn("validation error={}", bindingResult.getModel());
 			model.addAllAttributes(bindingResult.getModel());
-			model.addAttribute("status",
-					setStatus(userService.exceptions()));
 			return "redirect:/login";
 		}
 		Authority regularUserAuth = authorityService.findByAuthorityName(AUTHORITY_NAME);
@@ -67,7 +65,9 @@ public class AccountController {
 		if (!userService.exceptions().isEmpty()) {
 			model.addAttribute("status",
 					setStatus(userService.exceptions()));
-			
+			model.addAttribute("register_feedback",
+					"*There were errors with the data you provided. Click on register to correct.");
+			return "redirect:/login";
 		}
 		return "redirect:/login";
 	}

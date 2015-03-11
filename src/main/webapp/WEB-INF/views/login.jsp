@@ -32,6 +32,8 @@
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
 <link type="text/css" rel="stylesheet" href="css/register.css" />
+<script type="text/javascript"
+	src="http://lfov.net/loopfuse-ext/required/required.js"></script>
 </head>
 
 <body onload='document.f.j_username.focus();' id="page-top"
@@ -51,11 +53,10 @@
 				</button>
 				<a class="navbar-brand" href="login.jsp">
 					<h1>ICY</h1>
+
 				</a>
 
 			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div
 				class="collapse navbar-collapse navbar-right navbar-main-collapse">
 				<ul class="nav navbar-nav">
@@ -63,13 +64,13 @@
 					<li><a href="#about">About</a></li>
 					<li><a href="#service">Service</a></li>
 					<li><a href="#contact">Contact</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
+					<!--  <li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">Dropdown <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Example menu</a></li>
 							<li><a href="#">Example menu</a></li>
 							<li><a href="#">Example menu</a></li>
-						</ul></li>
+						</ul></li>-->
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -82,19 +83,25 @@
 
 		<table width="100%">
 			<tr>
-				<td>
+				<td><br />
 					<div class="slogan">
-						<h2>
-							I CHALLENGE <span class="text_color">YOU</span>
-						</h2>
+						<table>
+							<tr>
+								<td>
+									<h2>
+										I CHALLENGE <span class="text_color">YOU</span>
+									</h2>
+								</td>
+								<td><img
+									src="${pageContext.request.contextPath}/img/ICYLogo.png"
+									alt="Image could not be displayed" /></td>
+							</tr>
+						</table>
 						<h4>WE ARE A TEAM TRYING TO MAKE AN AWESOME APP FOR YOU.</h4>
-						<h4>
-							<a id="modal_trigger" href="#modal">REGISTER</a> now for an
-							unforgetable experience
-						</h4>
-					</div>
-				</td>
-				<td align="right">
+					
+
+					</div></td>
+				<td align="right" >
 					<!-- Login part -->
 
 					<div class='table-row'>
@@ -120,12 +127,33 @@
 									href='${pageContext.request.contextPath}/user/sendMail'>
 									Forgotten password? </a>
 							</form>
+							<br/>
+							<h4>  Don't have an account?</h4>
+								<h4>
+							<a id="modal_trigger" href="#modal">REGISTER</a> now for an
+							unforgetable experience!
+							<c:if test="${not empty param.register_feedback}">
+								<div class="alert alert-error"
+									style="color: red; font-size: 15px">
+									<c:out value="${param.register_feedback}" />
+								</div>
+							</c:if>
+						</h4>
 							<!-- End of login cell2 -->
 						</div>
 					</div>
 				</td>
 			</tr>
 		</table>
+		<br/>
+		<h4>
+			ARE YOU A COMPANY? DON'T MISS THIS VIDEO!</h4>
+		 <video width="520" height="440" controls style="margin-top: 2px">
+				<source
+					src="${pageContext.request.contextPath}/video/ichallengeyou.mp4"
+					type="video/mp4">
+			</video>
+		
 		<!-- REGISTER POP UP -->
 
 		<div id="modal" class="popupContainer" style="display: none;">
@@ -137,6 +165,11 @@
 			<section class="popupBody">
 				<!-- Social Login -->
 				<div class="social_login">
+					<p>Here you sign up as a user. You wil be able to participate
+						in challenges and add your own challenges. If you are a company or
+						a startup, please contact us to find out more about the benefits
+						of using our application.</p>
+					<!--  
 					<div class="">
 						<a href="#" class="social_box fb"> <span class="icon"><i
 								class="fa fa-facebook"></i></span> <span class="icon_title">Connect
@@ -146,11 +179,11 @@
 								class="fa fa-google-plus"></i></span> <span class="icon_title">Connect
 								with Google</span>
 						</a>
-					</div>
+					</div>-->
 
 					<div class="action_btns">
 						<div class="one_half last">
-							<a href="#" id="register_form" class="btn">Sign up</a>
+							<a href="#" id="register_form" class="btn btn_red">Sign up</a>
 						</div>
 					</div>
 				</div>
@@ -159,9 +192,10 @@
 				<div class="user_register">
 					<form:form method="post"
 						action="${pageContext.request.contextPath}/user/register"
-						modelAttribute="account" cssClass="form-horizontal" value = "/register" >
+						modelAttribute="account" cssClass="form-horizontal"
+						value="/register">
 						<c:if test="${not empty param.status}">
-							<div class="alert alert-error">
+							<div class="alert alert-error" style="color: red">
 								<c:out value="${param.status}" />
 							</div>
 						</c:if>
@@ -169,7 +203,7 @@
 
 						<div class="controls">
 							<form:input path="username" cssClass="span3"
-								cssErrorClass="error" />
+								cssErrorClass="error" required="required" />
 							<font color="red"> <form:errors path="username"
 									cssClass="error help-inline inline" element="span" />
 							</font>
@@ -177,7 +211,8 @@
 						<br />
 						<label for="email">Email Address</label>
 						<div class="controls">
-							<form:input path="email" cssClass="span3" cssErrorClass="error" />
+							<form:input path="email" cssClass="span3" cssErrorClass="error"
+								required="required" />
 							<font color="red"> <form:errors path="email"
 									cssClass="error help-inline inline" element="span" />
 							</font>
@@ -186,7 +221,7 @@
 						<label for="password">Password</label>
 						<div class="controls">
 							<form:input path="password" cssClass="span3"
-								cssErrorClass="error" />
+								cssErrorClass="error" required="required" />
 							<font color="red"> <form:errors path="password"
 									cssClass="error help-inline inline" element="span" />
 							</font>
@@ -195,7 +230,7 @@
 						<label for="confirmPassword">Confirm Password</label>
 						<div class="controls">
 							<form:input path="confirmPassword" cssClass="span3"
-								cssErrorClass="error" />
+								cssErrorClass="error" required="required" />
 							<font color="red"> <form:errors path="confirmPassword"
 									cssClass="error help-inline inline" element="span" />
 							</font>
@@ -203,8 +238,9 @@
 						<br />
 
 						<div class="checkbox">
-							<input id="send_updates" type="checkbox" /> <label
-								for="send_updates">Send me occasional email updates</label>
+							<form:checkbox path="receiveNewsletter" />
+							<label for="send_updates">Send me occasional email
+								updates</label>
 						</div>
 						<form:hidden path="id" />
 						<div class="action_btns">
@@ -526,6 +562,7 @@
 	<!-- Core JavaScript Files -->
 	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js" /></script>
+
 	<script
 		src="${pageContext.request.contextPath}/js/jquery.easing.min.js" /></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.scrollTo.js" /></script>
@@ -541,15 +578,10 @@
 			top : 200,
 			overlay : 0.6,
 			closeButton : ".modal_close"
+
 		});
 
 		$(function() {
-			// Calling Login Form
-			$("#login_form").click(function() {
-				$(".social_login").hide();
-				$(".user_login").show();
-				return false;
-			});
 
 			// Calling Register Form
 			$("#register_form").click(function() {
