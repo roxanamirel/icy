@@ -44,7 +44,6 @@ public class AccountController {
 			.getLogger(AccountController.class);
 
 
-
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerOnSubmit( Account account,
 			BindingResult bindingResult, Model model) {
