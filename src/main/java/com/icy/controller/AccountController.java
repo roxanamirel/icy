@@ -3,6 +3,7 @@ package com.icy.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
@@ -13,13 +14,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.icy.entity.Account;
+import com.icy.entity.Authority;
 import com.icy.service.AccountService;
+import com.icy.service.AuthorityService;
 import com.icy.utility.AuthorityEnum;
 
 @Controller
@@ -28,48 +33,47 @@ import com.icy.utility.AuthorityEnum;
 public class AccountController {
 
 	@Inject
-	protected AccountService userService;
+	private AccountService userService;
+	@Inject 
+	private AuthorityService authorityService;
 	@Autowired
 	private MessageDigestPasswordEncoder messageDigestPasswordEncoder;
-
-
+    private static final String AUTHORITY_NAME = "user";
+    private static final String AUTHORITY_NOT_FOUND = "Authority was not found";
 	protected static final Logger LOGGER = LoggerFactory
 			.getLogger(AccountController.class);
-/*
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public @ModelAttribute
-	void register(Model model) {
-		User user = new User();
-		model.addAttribute(user);
 
-	}
+
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerOnSubmit(@Valid User User,
+	public String registerOnSubmit( Account account,
 			BindingResult bindingResult, Model model) {
-		LOGGER.debug("create User={}", User);
-		userService.getExceptions().clear();
+		LOGGER.debug("create User={}", account);
+		userService.exceptions().clear();
 		if (bindingResult.hasErrors()) {
 			LOGGER.warn("validation error={}", bindingResult.getModel());
 			model.addAllAttributes(bindingResult.getModel());
 			model.addAttribute("status",
-					setStatus(UserService.getExceptions()));
-			return "/user/register";
+					setStatus(userService.exceptions()));
+			return "redirect:/login";
 		}
-
-		UserService.insert(user);
-		if (!userService.getExceptions().isEmpty()) {
+		Authority regularUserAuth = authorityService.findByAuthorityName(AUTHORITY_NAME);
+		if(regularUserAuth!=null){
+			account.setAuthority(regularUserAuth);
+			userService.insert(account);
+		}
+		else{
+			userService.exceptions().add(AUTHORITY_NOT_FOUND);
+		}
+		if (!userService.exceptions().isEmpty()) {
 			model.addAttribute("status",
-					setStatus(parentService.getExceptions()));
-			return "redirect:/user/register";
+					setStatus(userService.exceptions()));
+			
 		}
-		return "redirect:/user/accountCreated";
+		return "redirect:/login";
 	}
 
-	@RequestMapping(value = "/accountCreated", method = RequestMethod.GET)
-	public void accountCreated(Model model) {
-
-	}
+/*
 
 	@RequestMapping(value = "/editPassword", method = RequestMethod.GET)
 	public @ModelAttribute

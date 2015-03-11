@@ -21,9 +21,16 @@
 <!-- Squad theme CSS -->
 <link href="${pageContext.request.contextPath}/css/style.css"
 	rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/color/default.css"
+<link href="${pageContext.request.contextPath}/css/default.css"
 	rel="stylesheet" />
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+<link
+	href="${pageContext.request.contextPath}/fonts/glyphicons-halflings-regular.woff"
+	rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath}/fonts/glyphicons-halflings-regular.ttf"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
 <link type="text/css" rel="stylesheet" href="css/register.css" />
 </head>
 
@@ -80,9 +87,11 @@
 						<h2>
 							I CHALLENGE <span class="text_color">YOU</span>
 						</h2>
-						<h4>WE ARE A TEAM TRYING TO MAKE AN AWESOME APP FOR YOU. </h4>
-						<h4><a id="modal_trigger" href="#modal">REGISTER</a> now for an unforgetable experience</h4>
-					
+						<h4>WE ARE A TEAM TRYING TO MAKE AN AWESOME APP FOR YOU.</h4>
+						<h4>
+							<a id="modal_trigger" href="#modal">REGISTER</a> now for an
+							unforgetable experience
+						</h4>
 					</div>
 				</td>
 				<td align="right">
@@ -96,7 +105,7 @@
 									<p style="color: red">Invalid username or password.</p>
 								</div>
 							</c:if>
-							
+
 							<form class="form-signin" name='f'
 								action="<c:url value='/resources/j_spring_security_check' />"
 								method='POST' id="login">
@@ -110,66 +119,111 @@
 								<br /> <a
 									href='${pageContext.request.contextPath}/user/sendMail'>
 									Forgotten password? </a>
-							</form><!-- End of login cell2 -->
+							</form>
+							<!-- End of login cell2 -->
 						</div>
-						</div>			
+					</div>
 				</td>
 			</tr>
 		</table>
 		<!-- REGISTER POP UP -->
 
-							<div id="modal" class="popupContainer" style="display: none;">
-								<header class="popupHeader">
-									<span class="header_title">Login</span> <span
-										class="modal_close"><i class="fa fa-times"></i></span>
-								</header>
+		<div id="modal" class="popupContainer" style="display: none;">
+			<header class="popupHeader">
+				<span class="header_title">Login</span> <span class="modal_close"><i
+					class="fa fa-times"></i></span>
+			</header>
 
-								<section class="popupBody">
-									<!-- Social Login -->
-									<div class="social_login">
-										<div class="">
-											<a href="#" class="social_box fb"> <span class="icon"><i
-													class="fa fa-facebook"></i></span> <span class="icon_title">Connect
-													with Facebook</span>
+			<section class="popupBody">
+				<!-- Social Login -->
+				<div class="social_login">
+					<div class="">
+						<a href="#" class="social_box fb"> <span class="icon"><i
+								class="fa fa-facebook"></i></span> <span class="icon_title">Connect
+								with Facebook</span>
 
-											</a> <a href="#" class="social_box google"> <span
-												class="icon"><i class="fa fa-google-plus"></i></span> <span
-												class="icon_title">Connect with Google</span>
-											</a>
-										</div>
+						</a> <a href="#" class="social_box google"> <span class="icon"><i
+								class="fa fa-google-plus"></i></span> <span class="icon_title">Connect
+								with Google</span>
+						</a>
+					</div>
 
-										<div class="action_btns">
-											<div class="one_half last">
-												<a href="#" id="register_form" class="btn">Sign up</a>
-											</div>
-										</div>
-									</div>
-									<!-- Register Form -->
-									<div class="user_register">
-										<form>
-											<label>Full Name</label> <input type="text" /> <br /> <label>Email
-												Address</label> <input type="email" /> <br /> <label>Password</label>
-											<input type="password" /> <br />
+					<div class="action_btns">
+						<div class="one_half last">
+							<a href="#" id="register_form" class="btn">Sign up</a>
+						</div>
+					</div>
+				</div>
 
-											<div class="checkbox">
-												<input id="send_updates" type="checkbox" /> <label
-													for="send_updates">Send me occasional email updates</label>
-											</div>
-
-											<div class="action_btns">
-												<div class="one_half">
-													<a href="#" class="btn back_btn"><i
-														class="fa fa-angle-double-left"></i> Back</a>
-												</div>
-												<div class="one_half last">
-													<a href="#" class="btn btn_red">Register</a>
-												</div>
-											</div>
-										</form>
-									</div>
-								</section>
+				<!-- Register Form -->
+				<div class="user_register">
+					<form:form method="post"
+						action="${pageContext.request.contextPath}/user/register"
+						modelAttribute="account" cssClass="form-horizontal" value = "/register" >
+						<c:if test="${not empty param.status}">
+							<div class="alert alert-error">
+								<c:out value="${param.status}" />
 							</div>
-						<!-- End of register -->
+						</c:if>
+						<label for="username">Username</label>
+
+						<div class="controls">
+							<form:input path="username" cssClass="span3"
+								cssErrorClass="error" />
+							<font color="red"> <form:errors path="username"
+									cssClass="error help-inline inline" element="span" />
+							</font>
+						</div>
+						<br />
+						<label for="email">Email Address</label>
+						<div class="controls">
+							<form:input path="email" cssClass="span3" cssErrorClass="error" />
+							<font color="red"> <form:errors path="email"
+									cssClass="error help-inline inline" element="span" />
+							</font>
+						</div>
+						<br />
+						<label for="password">Password</label>
+						<div class="controls">
+							<form:input path="password" cssClass="span3"
+								cssErrorClass="error" />
+							<font color="red"> <form:errors path="password"
+									cssClass="error help-inline inline" element="span" />
+							</font>
+						</div>
+						<br />
+						<label for="confirmPassword">Confirm Password</label>
+						<div class="controls">
+							<form:input path="confirmPassword" cssClass="span3"
+								cssErrorClass="error" />
+							<font color="red"> <form:errors path="confirmPassword"
+									cssClass="error help-inline inline" element="span" />
+							</font>
+						</div>
+						<br />
+
+						<div class="checkbox">
+							<input id="send_updates" type="checkbox" /> <label
+								for="send_updates">Send me occasional email updates</label>
+						</div>
+						<form:hidden path="id" />
+						<div class="action_btns">
+							<div class="one_half">
+								<a href="#" class="btn back_btn"><i
+									class="fa fa-angle-double-left"></i> Back</a>
+							</div>
+
+							<div class="one_half last">
+								<input type="submit" class="btn btn_red" value="Register">&nbsp;
+							</div>
+
+
+						</div>
+					</form:form>
+				</div>
+			</section>
+		</div>
+		<!-- End of register -->
 
 		<div class="page-scroll">
 			<a href="#service" class="btn btn-circle"> <i
@@ -481,7 +535,7 @@
 
 	<!-- Register pop up -->
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+	<script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript">
 		$("#modal_trigger").leanModal({
 			top : 200,

@@ -11,6 +11,8 @@ import com.icy.entity.Account;
 public interface AccountRepository extends AccountRepositoryCustom, JpaRepository<Account, Integer> {
 
 	Account findByUsername(String username);
+	
+	Account findByEmail(String email);
 
 	List<Account> findAll();
 

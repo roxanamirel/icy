@@ -16,18 +16,20 @@ import org.springframework.transaction.annotation.Transactional;
 import com.icy.entity.Account;
 import com.icy.repository.AccountRepository;
 import com.icy.service.AccountService;
+import com.icy.utility.Mode;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 
 	@Inject
-	protected AccountRepository accountRepository;
+	private AccountRepository accountRepository;
+	@Inject
 	@Autowired
 	ServletContext servletContext;
 	@Autowired
 	private MessageDigestPasswordEncoder messageDigestPasswordEncoder;
 
-	List<String> exceptions = new ArrayList<String>();
+	private List<String> exceptions = new ArrayList<String>();
 
 	@Override
 	@Transactional(readOnly = true)
@@ -44,18 +46,22 @@ public class AccountServiceImpl implements AccountService {
 		return users;
 	}
 
-	@Override
-	public List<String> exceptions() {
-		return exceptions;
-	}
-
-	
-	public void checkUser(Account user, int mode) {
+	public void checkUser(Account user, Mode mode) {
 		if (user.getPassword() == null || user.getPassword().equals("")) {
-			exceptions.add("Parola nu poate fi goala. ");
+			exceptions.add("Empty password field. ");
+		}
+		if (user.getConfirmPassword() == null
+				|| user.getConfirmPassword().equals("")) {
+			exceptions.add("Empty confirm password field. ");
+		}
+		if (!user.getPassword().equals(user.getConfirmPassword())) {
+			exceptions.add("Passsword fields do not match. ");
 		}
 		if (user.getUsername() == null || user.getUsername().equals("")) {
-			exceptions.add("Username-ul nu poate fi gol. ");
+			exceptions.add("Empty username field. ");
+		}
+		if (user.getEmail() == null || ("").equals(user.getEmail())) {
+			exceptions.add("Empty email field. ");
 		} else {
 			Pattern pattern;
 			Matcher matcher;
@@ -63,28 +69,20 @@ public class AccountServiceImpl implements AccountService {
 			String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 					+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 			pattern = Pattern.compile(EMAIL_PATTERN);
-			matcher = pattern.matcher(user.getUsername());
+			matcher = pattern.matcher(user.getEmail());
 			if (!matcher.matches()) {
-				exceptions.add("Invalid email!!*! "
-						+ user.getUsername());
+				exceptions.add("Invalid email!! " + user.getEmail());
 				return;
 			}
 
-			Account u = accountRepository.findByUsername(user.getUsername());
-
-			if (mode == 0) {// CREATE USER
-				if (u != null) {
-					exceptions.add("Acest email este deja folosit. "
-							+ u.getUsername());
-				}
+			Account account = accountRepository.findByEmail(user.getEmail());
+			if (account != null) {
+				exceptions.add("Email " + account.getEmail() + " already used ");
 			}
-
-			if (mode == 1) {// UPDATE USER
-				if (u != null && u.getId() != user.getId()) {
-					exceptions.add("Email already used. "
-							+ u.getUsername());
-				}
-
+			account = accountRepository.findByUsername(user.getUsername());
+			if (account != null) {
+				exceptions.add("Username " + account.getUsername()
+						+ " already used");
 			}
 
 		}
@@ -95,7 +93,7 @@ public class AccountServiceImpl implements AccountService {
 	@Transactional
 	public Account changePassword(Account user) {
 		exceptions.clear();
-		checkUser(user, 1);// 1-UPDATE USER
+		checkUser(user, Mode.UPDATE);
 		if (exceptions.isEmpty()) {
 			String encryptedPassword = accountRepository
 					.sendMailAndEncodePassword(user.getUsername(),
@@ -124,9 +122,19 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional
 	public Account insert(Account account) {
-		
-		return accountRepository.save(account);
+		checkUser(account, Mode.INSERT);
+		if (exceptions.isEmpty()) {
+			return accountRepository.save(account);
+		} else {
+			return new Account();
+		}
 	}
+
+	@Override
+	public List<String> exceptions() {
+		return exceptions;
+	}
+
 	
 
 }
