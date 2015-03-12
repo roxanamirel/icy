@@ -54,7 +54,7 @@
 					<h1>ICY</h1>
 
 				</a>
-
+				
 			</div>
 			<div
 				class="collapse navbar-collapse navbar-right navbar-main-collapse">
@@ -85,6 +85,11 @@
 			<tr>
 				<td><br />
 					<div class="slogan">
+					<c:if test="${not empty param.contactStatus}">
+							<div class="alert alert-error" style="color: red; font-size: 20px">
+								<c:out value="${param.contactStatus}" />
+							</div>
+						</c:if>
 						<table>
 							<tr>
 								<td>
@@ -127,8 +132,9 @@
 									href='${pageContext.request.contextPath}/user/sendMail'>
 									Forgotten password? </a>
 							</form>
-							</div><!-- End of login cell2 -->
-							<div class="cellregister">
+						</div>
+						<!-- End of login cell2 -->
+						<div class="cellregister">
 							<br />
 							<h4>Don't have an account?</h4>
 							<h4>
@@ -141,7 +147,8 @@
 									</div>
 								</c:if>
 							</h4>
-						</div><!-- End of login cellregister -->
+						</div>
+						<!-- End of login cellregister -->
 					</div>
 				</td>
 			</tr>
@@ -174,7 +181,6 @@
 						<a href="#" class="social_box fb"> <span class="icon"><i
 								class="fa fa-facebook"></i></span> <span class="icon_title">Connect
 								with Facebook</span>
-
 						</a> <a href="#" class="social_box google"> <span class="icon"><i
 								class="fa fa-google-plus"></i></span> <span class="icon_title">Connect
 								with Google</span>
@@ -220,7 +226,7 @@
 						<br />
 						<label for="password">Password</label>
 						<div class="controls">
-							<form:input path="password" cssClass="span3"
+							<form:input type="password" path="password" cssClass="span3"
 								cssErrorClass="error" required="required" />
 							<font color="red"> <form:errors path="password"
 									cssClass="error help-inline inline" element="span" />
@@ -229,7 +235,7 @@
 						<br />
 						<label for="confirmPassword">Confirm Password</label>
 						<div class="controls">
-							<form:input path="confirmPassword" cssClass="span3"
+							<form:input type="password" path="confirmPassword" cssClass="span3"
 								cssErrorClass="error" required="required" />
 							<font color="red"> <form:errors path="confirmPassword"
 									cssClass="error help-inline inline" element="span" />
@@ -277,7 +283,7 @@
 					<div class="col-lg-8 col-lg-offset-2">
 						<div class="wow bounceInDown" data-wow-delay="0.4s">
 							<div class="section-heading">
-								<h2>About us</h2>
+								<h3>About us</h3>
 								<i class="fa fa-2x fa-angle-down"></i>
 
 							</div>
@@ -364,7 +370,7 @@
 					<div class="col-lg-8 col-lg-offset-2">
 						<div class="wow bounceInDown" data-wow-delay="0.4s">
 							<div class="section-heading">
-								<h2>Our Services</h2>
+								<h3>Our Services</h3>
 								<i class="fa fa-2x fa-angle-down"></i>
 
 							</div>
@@ -455,7 +461,7 @@
 					<div class="col-lg-8 col-lg-offset-2">
 						<div class="wow bounceInDown" data-wow-delay="0.4s">
 							<div class="section-heading">
-								<h2>Get in touch</h2>
+								<h3>Get in touch</h3>
 								<i class="fa fa-2x fa-angle-down"></i>
 							</div>
 						</div>
@@ -472,46 +478,53 @@
 			<div class="row">
 				<div class="col-lg-8">
 					<div class="boxed-grey">
-						<form id="contact-form">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="name"> Name</label> <input type="text"
-											class="form-control" id="name" placeholder="Enter name"
-											required="required" />
-									</div>
-									<div class="form-group">
-										<label for="email"> Email Address</label>
-										<div class="input-group">
-											<span class="input-group-addon"><span
-												class="glyphicon glyphicon-envelope"></span> </span> <input
-												type="email" class="form-control" id="email"
-												placeholder="Enter email" required="required" />
+						<form:form method="post"
+							action="${pageContext.request.contextPath}/contact"
+							modelAttribute="contactData" cssClass="form" id="contact-form">
+							<fieldset>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="name"> Name</label>
+											<form:input path="name" type="text" class="form-control"
+												id="name" placeholder="Enter name" required="required" />
+										</div>
+										<div class="form-group">
+											<label for="email"> Email Address</label>
+											<div class="input-group">
+												<span class="input-group-addon"><span
+													class="glyphicon glyphicon-envelope"></span> </span>
+												<form:input path="email" type="email" class="form-control"
+													id="email" placeholder="Enter email" required="required" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="subject"> Subject</label>
+											<form:select id="subject" path="subject" name="subject"
+												class="form-control" required="required">
+												<form:option value="na" selected="">Choose One:</form:option>
+												<form:option value="service">General Customer Service</form:option>
+												<form:option value="suggestions">Suggestions</form:option>
+												<form:option value="product">Product Support</form:option>
+											</form:select>
 										</div>
 									</div>
-									<div class="form-group">
-										<label for="subject"> Subject</label> <select id="subject"
-											name="subject" class="form-control" required="required">
-											<option value="na" selected="">Choose One:</option>
-											<option value="service">General Customer Service</option>
-											<option value="suggestions">Suggestions</option>
-											<option value="product">Product Support</option>
-										</select>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="name"> Message</label>
+											<form:textarea path="message" name="message" id="message"
+												class="form-control" rows="9" cols="25" required="required"
+												placeholder="Message"></form:textarea>
+										</div>
+									</div>
+									<div class="col-md-12">
+
+										<input type="submit" class="btn btn-skin pull-right"
+											id="btnContactUs" value="Send Message">&nbsp;
 									</div>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="name"> Message</label>
-										<textarea name="message" id="message" class="form-control"
-											rows="9" cols="25" required="required" placeholder="Message"></textarea>
-									</div>
-								</div>
-								<div class="col-md-12">
-									<button type="submit" class="btn btn-skin pull-right"
-										id="btnContactUs">Send Message</button>
-								</div>
-							</div>
-						</form>
+							</fieldset>
+						</form:form>
 					</div>
 				</div>
 				<div class="col-lg-4">
@@ -571,23 +584,23 @@
 	<script src="${pageContext.request.contextPath}/js/custom.js" /></script>
 
 	<!-- Register pop up -->
-	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript">
 		$("#modal_trigger").leanModal({
 			top : 200,
 			overlay : 0.6,
 			closeButton : ".modal_close"
-
 		});
-
 		$(function() {
 			$(".cell2").hide();
 			//calling login
 			$("#login").click(function() {
-			
+
 				$(".cell2").show();
-				
+
 				return false;
 			});
 			// Calling Register Form
@@ -597,7 +610,6 @@
 				$(".header_title").text('Register');
 				return false;
 			});
-
 			// Going back to Social Forms
 			$(".back_btn").click(function() {
 				$(".user_login").hide();
@@ -606,10 +618,8 @@
 				$(".header_title").text('Login');
 				return false;
 			});
-
 		});
 	</script>
 
 </body>
 </html>
-
