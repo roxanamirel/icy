@@ -26,19 +26,20 @@ import com.icy.service.impl.EmailSender;
 import com.icy.utility.ContactData;
 
 @Controller
-@SessionAttributes({"status"})
+@SessionAttributes({ "status" })
 public class LoginController {
 	@Autowired
 	ServletContext servletContext;
 	@Inject
 	protected AccountService accountService;
+
 	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
 
 		User user = (User) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 		String name = user.getUsername();
-		
+
 		model.addAttribute("username", name);
 		model.addAttribute("message",
 				"Spring Security login and   database example");
@@ -73,35 +74,35 @@ public class LoginController {
 	public String contact(Model model) {
 		ContactData contactData = new ContactData();
 		model.addAttribute("contactData", contactData);
-		
+
 		return "contact";
 	}
 
 	@RequestMapping(value = "/contact", method = RequestMethod.POST)
-	public String contactPost(@Valid ContactData contactData,BindingResult bindingResult, Model model
-			) {
+	public String contactPost(@Valid ContactData contactData,
+			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAllAttributes(bindingResult.getModel());
 			return "contact";
 		}
 		String emailAdr = contactData.getEmail();
 		String message = contactData.getMessage();
-		message = message +"\n NAME: "+ contactData.getName();
+		message = message + "\n NAME: " + contactData.getName();
 		String subject = contactData.getSubject();
 		WebApplicationContext ctx = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(servletContext);
 		EmailSender mm = (EmailSender) ctx.getBean("mailMail");
-		
+
 		try {
-			mm.sendMail(emailAdr, "ichallengeyu@gmail.com", subject,
-					message);
-			model.addAttribute("status","Message has been sent.We will get back to you.");
+			mm.sendMail(emailAdr, "ichallengeyu@gmail.com", subject, message);
+			model.addAttribute("status",
+					"Message has been sent.We will get back to you.");
 		} catch (Throwable ex) {
-			model.addAttribute("status","Message could not be sent.");
+			model.addAttribute("status", "Message could not be sent.");
 			ex.printStackTrace();
 
 		}
-		
+
 		return "contact";
 	}
 

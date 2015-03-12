@@ -717,7 +717,7 @@ Login
 	padding-right: 0;
 }
 
-.cell1,.cell2,.cell3 {
+.cell1,.cell2,.cell3,.cellregister {
 	display: table-cell;
 	float: right;
 
@@ -729,6 +729,14 @@ Login
 	margin-right: 10px;
 	margin-top: 0px;
 	padding-right: 10px;
+	padding-top: 0px;
+}
+.cellregister {
+	width: 700px;
+	float: right;
+	margin-right: 10px;
+	margin-top: 0px;
+	padding-right: 18px;
 	padding-top: 0px;
 }
 

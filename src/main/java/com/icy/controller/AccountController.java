@@ -66,8 +66,12 @@ public class AccountController {
 			model.addAttribute("status",
 					setStatus(userService.exceptions()));
 			model.addAttribute("register_feedback",
-					"*There were errors with the data you provided. Click on register to correct.");
+					"There were errors with the data you provided. Click on register to correct.");
 			return "redirect:/login";
+		}
+		else{
+			model.addAttribute("register_feedback",
+					"Your account has been created. Login and start challenging!");
 		}
 		return "redirect:/login";
 	}

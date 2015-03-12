@@ -32,8 +32,7 @@
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
 <link type="text/css" rel="stylesheet" href="css/register.css" />
-<script type="text/javascript"
-	src="http://lfov.net/loopfuse-ext/required/required.js"></script>
+
 </head>
 
 <body onload='document.f.j_username.focus();' id="page-top"
@@ -64,6 +63,7 @@
 					<li><a href="#about">About</a></li>
 					<li><a href="#service">Service</a></li>
 					<li><a href="#contact">Contact</a></li>
+					<li><a href="#" id="login">Login</a></li>
 					<!--  <li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">Dropdown <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -98,10 +98,10 @@
 							</tr>
 						</table>
 						<h4>WE ARE A TEAM TRYING TO MAKE AN AWESOME APP FOR YOU.</h4>
-					
+
 
 					</div></td>
-				<td align="right" >
+				<td align="right">
 					<!-- Login part -->
 
 					<div class='table-row'>
@@ -127,33 +127,33 @@
 									href='${pageContext.request.contextPath}/user/sendMail'>
 									Forgotten password? </a>
 							</form>
-							<br/>
-							<h4>  Don't have an account?</h4>
-								<h4>
-							<a id="modal_trigger" href="#modal">REGISTER</a> now for an
-							unforgetable experience!
-							<c:if test="${not empty param.register_feedback}">
-								<div class="alert alert-error"
-									style="color: red; font-size: 15px">
-									<c:out value="${param.register_feedback}" />
-								</div>
-							</c:if>
-						</h4>
-							<!-- End of login cell2 -->
-						</div>
+							</div><!-- End of login cell2 -->
+							<div class="cellregister">
+							<br />
+							<h4>Don't have an account?</h4>
+							<h4>
+								<a id="modal_trigger" href="#modal">REGISTER</a> now for an
+								unforgetable experience!
+								<c:if test="${not empty param.register_feedback}">
+									<div class="alert alert-error"
+										style="color: red; font-size: 15px">
+										<c:out value="${param.register_feedback}" />
+									</div>
+								</c:if>
+							</h4>
+						</div><!-- End of login cellregister -->
 					</div>
 				</td>
 			</tr>
 		</table>
-		<br/>
-		<h4>
-			ARE YOU A COMPANY? DON'T MISS THIS VIDEO!</h4>
-		 <video width="520" height="440" controls style="margin-top: 2px">
-				<source
-					src="${pageContext.request.contextPath}/video/ichallengeyou.mp4"
-					type="video/mp4">
-			</video>
-		
+		<br />
+		<h4>ARE YOU A COMPANY? DON'T MISS THIS VIDEO!</h4>
+		<video width="520" height="440" controls style="margin-top: 2px">
+			<source
+				src="${pageContext.request.contextPath}/video/ichallengeyou.mp4"
+				type="video/mp4">
+		</video>
+
 		<!-- REGISTER POP UP -->
 
 		<div id="modal" class="popupContainer" style="display: none;">
@@ -582,7 +582,14 @@
 		});
 
 		$(function() {
-
+			$(".cell2").hide();
+			//calling login
+			$("#login").click(function() {
+			
+				$(".cell2").show();
+				
+				return false;
+			});
 			// Calling Register Form
 			$("#register_form").click(function() {
 				$(".social_login").hide();
