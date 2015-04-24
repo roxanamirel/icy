@@ -54,7 +54,7 @@
 					<h1>ICY</h1>
 
 				</a>
-				
+
 			</div>
 			<div
 				class="collapse navbar-collapse navbar-right navbar-main-collapse">
@@ -85,8 +85,9 @@
 			<tr>
 				<td><br />
 					<div class="slogan">
-					<c:if test="${not empty param.contactStatus}">
-							<div class="alert alert-error" style="color: red; font-size: 20px">
+						<c:if test="${not empty param.contactStatus}">
+							<div class="alert alert-error"
+								style="color: red; font-size: 20px">
 								<c:out value="${param.contactStatus}" />
 							</div>
 						</c:if>
@@ -235,8 +236,8 @@
 						<br />
 						<label for="confirmPassword">Confirm Password</label>
 						<div class="controls">
-							<form:input type="password" path="confirmPassword" cssClass="span3"
-								cssErrorClass="error" required="required" />
+							<form:input type="password" path="confirmPassword"
+								cssClass="span3" cssErrorClass="error" required="required" />
 							<font color="red"> <form:errors path="confirmPassword"
 									cssClass="error help-inline inline" element="span" />
 							</font>
@@ -620,6 +621,32 @@
 			});
 		});
 	</script>
-
+	<br />
+	<div align="right">
+		<!-- Start of StatCounter Code for Default Guide -->
+		<script type="text/javascript">
+			var sc_project = 10409072;
+			var sc_invisible = 0;
+			var sc_security = "8817209a";
+			var scJsHost = (("https:" == document.location.protocol) ? "https://secure."
+					: "http://www.");
+			document
+					.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+		</script>
+		<noscript>
+			<div class="statcounter">
+				<a title="shopify site
+analytics"
+					href="http://statcounter.com/shopify/" target="_blank"><img
+					class="statcounter"
+					src="http://c.statcounter.com/10409072/0/8817209a/0/"
+					alt="shopify site analytics"></a>
+			</div>
+		</noscript>
+		<!-- End of StatCounter Code for Default Guide -->
+		<a href="http://statcounter.com/p10409072/?guest=1">View My Stats</a>
+	</div>
 </body>
 </html>
