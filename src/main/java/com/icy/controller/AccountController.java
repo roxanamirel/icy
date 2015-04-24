@@ -34,18 +34,17 @@ public class AccountController {
 
 	@Inject
 	private AccountService userService;
-	@Inject 
+	@Inject
 	private AuthorityService authorityService;
 	@Autowired
 	private MessageDigestPasswordEncoder messageDigestPasswordEncoder;
-    private static final String AUTHORITY_NAME = "user";
-    private static final String AUTHORITY_NOT_FOUND = "Authority was not found";
+	private static final String AUTHORITY_NAME = "user";
+	private static final String AUTHORITY_NOT_FOUND = "Authority was not found";
 	protected static final Logger LOGGER = LoggerFactory
 			.getLogger(AccountController.class);
 
-
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerOnSubmit(  @Valid Account account,
+	public String registerOnSubmit(@Valid Account account,
 			BindingResult bindingResult, Model model) {
 		LOGGER.debug("create User={}", account);
 		userService.exceptions().clear();
@@ -54,90 +53,26 @@ public class AccountController {
 			model.addAllAttributes(bindingResult.getModel());
 			return "redirect:/login";
 		}
-		Authority regularUserAuth = authorityService.findByAuthorityName(AUTHORITY_NAME);
-		if(regularUserAuth!=null){
+		Authority regularUserAuth = authorityService
+				.findByAuthorityName(AUTHORITY_NAME);
+		if (regularUserAuth != null) {
 			account.setAuthority(regularUserAuth);
 			userService.insert(account);
-		}
-		else{
+		} else {
 			userService.exceptions().add(AUTHORITY_NOT_FOUND);
 		}
 		if (!userService.exceptions().isEmpty()) {
-			model.addAttribute("status",
-					setStatus(userService.exceptions()));
+			model.addAttribute("status", setStatus(userService.exceptions()));
 			model.addAttribute("register_feedback",
 					"There were errors with the data you provided. Click on register to correct.");
 			return "redirect:/login";
-		}
-		else{
+		} else {
 			model.addAttribute("register_feedback",
 					"Your account has been created. Login and start challenging!");
 		}
 		return "redirect:/login";
 	}
 
-/*
-
-	@RequestMapping(value = "/editPassword", method = RequestMethod.GET)
-	public @ModelAttribute
-	void editPassword(Model model) {
-		model.addAttribute(new com.icy.entity.User());
-
-	}
-
-	@RequestMapping(value = "/editPassword", method = RequestMethod.POST)
-	public String editOnSubmit(@Valid com.icy.entity.User user,
-			BindingResult bindingResult, Model model) {
-		LOGGER.debug("create user transaction={}", user);
-		if (bindingResult.hasErrors()) {
-			LOGGER.warn("validation error={}", bindingResult.getModel());
-			model.addAllAttributes(bindingResult.getModel());
-			return "/user/editPassword";
-		}
-
-		if (user.getUsername() == null || user.getConfirmPassword() == null
-				|| user.getNewPassword() == null || user.getPassword() == null) {
-			model.addAttribute("status", "All fields are mandatory");
-			return "/user/editPassword";
-		}
-
-		if (user.getUsername().isEmpty() || user.getConfirmPassword().isEmpty()
-				|| user.getNewPassword().isEmpty()
-				|| user.getPassword().isEmpty()) {
-			model.addAttribute("status", "All fields are mandatory");
-			return "/user/editPassword";
-		}
-		com.icy.entity.User dbUser = userService.findByUsername(user
-				.getUsername());
-		if (dbUser == null) {
-			model.addAttribute("status", "User not registered ");
-			return "/user/editPassword";
-		}
-		 String encryptedPassword =
-				 messageDigestPasswordEncoder.encodePassword(user.getPassword(), null);
-		if (!encryptedPassword.equals(dbUser.getPassword())) {
-			model.addAttribute("status",
-					"Password not found!");
-			return "/user/editPassword";
-		}
-
-		if (!user.getConfirmPassword().equals(user.getNewPassword())) {
-			model.addAttribute("status", "Password does not match");
-			return "/user/editPassword";
-		}
-		dbUser.setPassword(user.getNewPassword());
-		userService.changePassword(dbUser);
-		if (!userService.exceptions().isEmpty()) {
-			model.addAttribute("status", setStatus(userService.exceptions()));
-			return "/user/editPassword";
-		} else {
-			model.addAttribute("sendMail_success",
-					"An email with your account has been sent!");
-			return "/login";
-		}
-
-	}
-*/
 	@RequestMapping(value = "/userRedirect", method = RequestMethod.GET)
 	public String redirect(Model model) {
 
@@ -146,18 +81,18 @@ public class AccountController {
 			return "redirect:/login";
 		}
 
-	
 		if (user.getAuthority() == null) {
 			return "redirect:/login";
 		}
-		if(user.getAuthority().getAuthority().equals(AuthorityEnum.user.toString())){
+		if (user.getAuthority().getAuthority()
+				.equals(AuthorityEnum.user.toString())) {
 			return "redirect:/user/wall";
-		}
-		else {
+		} else {
 			return "redirect:/login";
 		}
-		
+
 	}
+
 	@RequestMapping(value = "/wall", method = RequestMethod.GET)
 	public void accountCreated(Model model) {
 
@@ -181,8 +116,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/sendMail", method = RequestMethod.GET)
-	public @ModelAttribute
-	void sendMailGet(Model model) {
+	public @ModelAttribute void sendMailGet(Model model) {
 
 		model.addAttribute("username", "");
 	}
@@ -203,20 +137,43 @@ public class AccountController {
 						setStatus(userService.exceptions()));
 			}
 		} else {
-			model.addAttribute("status",
-					"Username or password not found");
+			model.addAttribute("status", "Username or password not found");
 		}
 		return "user/sendMail";
 
 	}
 
-
-	
 	@RequestMapping(value = "/viewer", method = RequestMethod.GET)
-	public @ModelAttribute
-	String viewer(Model model) {
-	
+	public @ModelAttribute String viewer(Model model) {
+
 		return "/user/viewer";
 
 	}
+
+	/*
+	 * 
+	 * ADMINISTRATIVE
+	 */
+
+	/* http://localhost:8080/icy/user/count.json */
+	@RequestMapping(value = "/count", method = RequestMethod.GET)
+	public @ModelAttribute void countAllUsers(Model model) {
+		List<Account> users = userService.findAll();
+		int count = users.size();
+		model.addAttribute("Number of users:", count);
+
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public @ModelAttribute void listAllUsers(Model model) {
+		List<Account> users = userService.findAll();
+		StringBuilder userModel = new StringBuilder();
+		for(Account account:users){
+			userModel.append(account.toString());
+			userModel.append("********");
+		}
+		model.addAttribute("Users",userModel);
+
+	}
+
 }

@@ -122,4 +122,13 @@ public class Account implements java.io.Serializable {
 		this.receiveNewsletter = receiveNewsletter;
 	}
 
+	@Override
+	public String toString() {
+		return "Account [user_id=" + user_id + ", username=" + username
+				+ ", password=" + password + ", enabled=" + enabled
+				+ ", receiveNewsletter=" + receiveNewsletter + ", email="
+				+ email + ", confirmPassword=" + confirmPassword
+				+ ", authority=" + authority + "]";
+	}
+
 }
