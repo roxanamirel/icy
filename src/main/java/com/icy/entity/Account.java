@@ -2,6 +2,8 @@ package com.icy.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -29,6 +32,9 @@ public class Account implements java.io.Serializable {
 	private String email;
 	private String confirmPassword;
 	private Authority authority;
+	private List<Challenge> challenges;
+	private List<ChallengeAccepted> challengeaccepted;
+
 
 	public Account() {
 	}
@@ -120,6 +126,25 @@ public class Account implements java.io.Serializable {
 
 	public void setReceiveNewsletter(boolean receiveNewsletter) {
 		this.receiveNewsletter = receiveNewsletter;
+	}
+	
+	@OneToMany(mappedBy = "owner")
+	@Column(name = "User_Created_Challenge", nullable = true)
+	public List<Challenge> getChallenges() {
+		return challenges;
+	}
+
+	public void setChallenges(List<Challenge> challenges) {
+		this.challenges = challenges;
+	}
+
+	@OneToMany(mappedBy = "user")
+	public List<ChallengeAccepted> getChallengeaccepted() {
+		return challengeaccepted;
+	}
+
+	public void setChallengeaccepted(List<ChallengeAccepted> challengeaccepted) {
+		this.challengeaccepted = challengeaccepted;
 	}
 
 	@Override

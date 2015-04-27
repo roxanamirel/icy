@@ -6,7 +6,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-
 import com.icy.entity.Challenge;
 import com.icy.repository.ChallengeRepository;
 import com.icy.service.ChallengeService;
@@ -28,6 +27,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public java.util.List<Challenge> getChallenge() {
 		// TODO Auto-generated method stub
 		return challengeRepository.findAll();
+	}
+
+	@Override
+	public Challenge findById(Integer challengeId) {
+		// TODO Auto-generated method stub
+		return challengeRepository.findOne(challengeId);
 	}
 	
 	

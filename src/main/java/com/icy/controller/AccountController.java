@@ -16,16 +16,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.icy.entity.Account;
 import com.icy.entity.Authority;
 import com.icy.entity.Challenge;
+import com.icy.entity.ChallengeAccepted;
 import com.icy.service.AccountService;
 import com.icy.service.AuthorityService;
+import com.icy.service.ChallengeAcceptedService;
 import com.icy.service.ChallengeService;
 import com.icy.utility.AuthorityEnum;
 
@@ -40,6 +44,8 @@ public class AccountController {
 	private AuthorityService authorityService;
 	@Inject
 	private ChallengeService challengeService;
+	@Inject
+	private ChallengeAcceptedService challengeAcceptedService;
 	
 	@Autowired
 	private MessageDigestPasswordEncoder messageDigestPasswordEncoder;
@@ -114,11 +120,27 @@ public class AccountController {
 	
 	@RequestMapping(value = "/challengecreated", method = RequestMethod.POST)
 	public String challengeCreated(@Valid Challenge challenge,Model model) {
+		challenge.setOwner(getLoggedInUser());
 		challengeService.insert(challenge);
 		model.addAttribute("challenge_feedback",
 				"Challenge has been created.");
+		ChallengeAccepted challengeAccepted = new ChallengeAccepted();
+		model.addAttribute("challengeAccepted",challengeAccepted);
 		return "redirect:/user/wall";
 	}
+	
+	@RequestMapping(value = "/acceptchallenge/{challengeId}", method = RequestMethod.POST)
+	public String challengeAccept(@PathVariable("challengeId") Integer challengeId,Model model) {
+		ChallengeAccepted challengeAccepted = new ChallengeAccepted();
+		challengeAccepted.setUser(getLoggedInUser());
+		Challenge challenge = challengeService.findById(challengeId);
+		challengeAccepted.setChallenge(challenge);
+		challengeAcceptedService.insert(challengeAccepted);
+		model.addAttribute("feedback",
+				"Challenge Accepted.");
+		return "redirect:/user/wall";
+	}
+	
 
 	public String setStatus(List<String> exceptions) {
 		StringBuilder modelString = new StringBuilder();

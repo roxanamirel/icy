@@ -50,6 +50,7 @@
 		<jpa:repository id="accountRepository" />
 		<jpa:repository id="authorityRepository" />
 		<jpa:repository id="challengeRepository" />
+		<jpa:repository id="challengeAcceptedRepository" />
 	</jpa:repositories>
 	<context:annotation-config />
 	<context:component-scan base-package="com.icy" />

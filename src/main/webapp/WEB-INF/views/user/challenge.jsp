@@ -7,7 +7,7 @@
 <title>Challenge</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/Form.css" />
 </head>
-<body>
+<body >
 <div class="form-style-5">
 <form:form method="post" action="${pageContext.request.contextPath}/user/challengecreated"
 						modelAttribute="challenge" 

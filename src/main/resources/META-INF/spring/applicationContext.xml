@@ -82,6 +82,7 @@
 		<jpa:repository id="accountRepository" />
 		<jpa:repository id="authorityRepository" />
 		<jpa:repository id="challengeRepository" />
+		<jpa:repository id="challengeAcceptedRepository" />
 	</jpa:repositories>
 
 </beans>
