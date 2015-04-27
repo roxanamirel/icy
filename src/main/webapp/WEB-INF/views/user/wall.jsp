@@ -45,7 +45,7 @@ body {
 		<link rel="stylesheet"
 			href="${pageContext.request.contextPath}/css/bootstrap/bootstrap-responsive.css">
 		</head>
-		<body>
+		<body  >
 			
 		<div class="container">
 			<div class="navbar-header page-scroll">
@@ -56,7 +56,7 @@ body {
 			</div>
 			<div
 				class="cellregister" align='right'>
-				<a href='${pageContext.request.contextPath}/user/challenge' id="challenge" class="btn btn-primary btn-lg active" role="button">Create Challenge</a>
+				<a href='${pageContext.request.contextPath}/user/challenge' id="challenge" class="btn btn-primary" >Create Challenge</a>
 					
 				
 			</div>
@@ -72,6 +72,7 @@ body {
 			<th>Challenge</th>
 			<th>Category</th>
 			<th>Description</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -95,6 +96,17 @@ body {
 					</strong>
 					<br />
 					${challenge.challengeadditionalinfo}
+				</td>
+				<td>
+				<form:form method="post"
+							action="${pageContext.request.contextPath}/user/acceptchallenge/${challenge.id}"
+							modelAttribute="acceptchallenge" cssClass="form" id="acceptchallenge">
+							
+							
+					<input type="submit" class="btn btn-skin pull-right"
+											id="btnAccept" value="Accept">
+					
+				</form:form>
 				</td>
 			</tr>
 		</c:forEach>
