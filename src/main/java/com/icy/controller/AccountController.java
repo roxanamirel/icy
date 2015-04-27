@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.icy.entity.Account;
 import com.icy.entity.Authority;
+import com.icy.entity.Challenge;
 import com.icy.service.AccountService;
 import com.icy.service.AuthorityService;
+import com.icy.service.ChallengeService;
 import com.icy.utility.AuthorityEnum;
 
 @Controller
@@ -36,6 +38,9 @@ public class AccountController {
 	private AccountService userService;
 	@Inject
 	private AuthorityService authorityService;
+	@Inject
+	private ChallengeService challengeService;
+	
 	@Autowired
 	private MessageDigestPasswordEncoder messageDigestPasswordEncoder;
 	private static final String AUTHORITY_NAME = "user";
@@ -92,10 +97,27 @@ public class AccountController {
 		}
 
 	}
-
+	
+	
 	@RequestMapping(value = "/wall", method = RequestMethod.GET)
 	public void accountCreated(Model model) {
-
+		model.addAttribute("challenge_id", challengeService.getChallenge());
+	}
+	
+	
+	
+	@RequestMapping(value = "/challenge", method = RequestMethod.GET)
+	public void challenge(Model model) {
+		Challenge challenge = new Challenge();
+		model.addAttribute("challenge",challenge);
+	}
+	
+	@RequestMapping(value = "/challengecreated", method = RequestMethod.POST)
+	public String challengeCreated(@Valid Challenge challenge,Model model) {
+		challengeService.insert(challenge);
+		model.addAttribute("challenge_feedback",
+				"Challenge has been created.");
+		return "redirect:/user/wall";
 	}
 
 	public String setStatus(List<String> exceptions) {

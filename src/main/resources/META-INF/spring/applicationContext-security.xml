@@ -23,6 +23,7 @@
 		<intercept-url pattern="/contact*" access="permitAll()" />
 		<intercept-url pattern="/user/register" access="permitAll()" />
 		<intercept-url pattern="/user/wall" access="hasRole('user')" />
+		<intercept-url pattern="/user/challenge" access="hasRole('user')" />
 		<intercept-url pattern="/**" access="isAuthenticated()" /> <!-- change to isAuthenticated() -->
 		<intercept-url pattern="/css/**" filters="none" />
 		<intercept-url pattern="/css/bootstrap/**" filters="none" />
@@ -48,6 +49,7 @@
 	<jpa:repositories base-package="com.icy.repository">
 		<jpa:repository id="accountRepository" />
 		<jpa:repository id="authorityRepository" />
+		<jpa:repository id="challengeRepository" />
 	</jpa:repositories>
 	<context:annotation-config />
 	<context:component-scan base-package="com.icy" />

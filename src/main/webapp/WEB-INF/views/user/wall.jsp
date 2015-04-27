@@ -16,17 +16,91 @@ body {
 </style>
 
 		<title>Wall</title>
+		
+<!-- Bootstrap Core CSS -->
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
 
-		<body>
-			<h1>Welcome to your wall</h1>
-		</body>
+<!-- Fonts -->
+<link href="${pageContext.request.contextPath}/css/animate.css"
+	rel="stylesheet" />
+<!-- Squad theme CSS -->
+<link href="${pageContext.request.contextPath}/css/style.css"
+	rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/default.css"
+	rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css" />
+<link
+	href="${pageContext.request.contextPath}/fonts/glyphicons-halflings-regular.woff"
+	rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath}/fonts/glyphicons-halflings-regular.ttf"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="css/register.css" />
+		
 		<link rel="stylesheet"
 			href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
 		<link rel="stylesheet"
 			href="${pageContext.request.contextPath}/css/bootstrap/bootstrap-responsive.css">
 		</head>
 		<body>
-
+			
+		<div class="container">
+			<div class="navbar-header page-scroll">
+				
+				
+				<img src="${pageContext.request.contextPath}/img/ICYLogo.png"
+									alt="Image could not be displayed" height='30px' width='50px'/>
+			</div>
+			<div
+				class="cellregister" align='right'>
+				<a href='${pageContext.request.contextPath}/user/challenge' id="challenge" class="btn btn-primary btn-lg active" role="button">Create Challenge</a>
+					
+				
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	
+	
+	<div class="sticky-wrap">
+	<table class="sticky-enabled" style="margin: 0px; width: 100%;">
+	<thead>
+		<tr>
+			<th>Challenge</th>
+			<th>Category</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach items="${challenge_id}" var="challenge">
+			<tr>
+				<td>
+					<c:out value="${challenge.challengename}" />
+					<br />
+					
+				</td>
+				<td>
+					<c:out value="${challenge.challengecategory}" />
+					<br />
+					
+				</td>
+				<td>
+					<strong>
+						
+							<c:out value="${challenge.challengedesc}" />
+					
+					</strong>
+					<br />
+					${challenge.challengeadditionalinfo}
+				</td>
+			</tr>
+		</c:forEach>
+	</tbody>
+</table>
+</div>
 		</body>
 
 	</c:param>
