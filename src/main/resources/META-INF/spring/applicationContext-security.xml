@@ -24,6 +24,9 @@
 		<intercept-url pattern="/user/register" access="permitAll()" />
 		<intercept-url pattern="/user/wall" access="hasRole('user')" />
 		<intercept-url pattern="/user/challenge" access="hasRole('user')" />
+		<intercept-url pattern="/user/mychallenges" access="hasRole('user')" />
+		<intercept-url pattern="/user/challengecreated" access="hasRole('user')" />
+		<intercept-url pattern="/user/acceptchallenge/**" access="hasRole('user')" />
 		<intercept-url pattern="/**" access="isAuthenticated()" /> <!-- change to isAuthenticated() -->
 		<intercept-url pattern="/css/**" filters="none" />
 		<intercept-url pattern="/css/bootstrap/**" filters="none" />

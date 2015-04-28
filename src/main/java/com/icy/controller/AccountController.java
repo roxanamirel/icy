@@ -1,5 +1,6 @@
 package com.icy.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -109,7 +110,16 @@ public class AccountController {
 	public void accountCreated(Model model) {
 		model.addAttribute("challenge_id", challengeService.getChallenge());
 	}
-	
+	@RequestMapping(value = "/mychallenges", method = RequestMethod.GET)
+	public void mychallenges(Model model) {
+		int loggedinUserId = getLoggedInUser().getId();
+		List<ChallengeAccepted> myAccChallenges = challengeAcceptedService.findByUserId(loggedinUserId);
+		List<Challenge> myChallenges = new ArrayList<Challenge>();
+		for(ChallengeAccepted challengeAcc:myAccChallenges){
+			myChallenges.add(challengeAcc.getChallenge());
+		}
+		model.addAttribute("my_challenges",myChallenges) ;
+	}
 	
 	
 	@RequestMapping(value = "/challenge", method = RequestMethod.GET)

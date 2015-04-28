@@ -1,5 +1,7 @@
 package com.icy.service.impl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -17,8 +19,13 @@ public class ChallengeAcceptedServiceImpl implements ChallengeAcceptedService {
 
 	@Override
 	public ChallengeAccepted insert(ChallengeAccepted challenge) {
-		// TODO Auto-generated method stub
 		return challengeAcceptedRepository.save(challenge);
 	}
+
+	@Override
+	public List<ChallengeAccepted> findByUserId(int accountId) {
+		return challengeAcceptedRepository.findByUserId(accountId);
+	}
+	
 
 }

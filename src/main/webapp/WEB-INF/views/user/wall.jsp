@@ -51,12 +51,15 @@ body {
 			<div class="navbar-header page-scroll">
 				
 				
-				<img src="${pageContext.request.contextPath}/img/ICYLogo.png"
+				<img src="${pageContext.request.contextPath}/img/ICYLogo.png" 
 									alt="Image could not be displayed" height='30px' width='50px'/>
 			</div>
 			<div
 				class="cellregister" align='right'>
 				<a href='${pageContext.request.contextPath}/user/challenge' id="challenge" class="btn btn-primary" >Create Challenge</a>
+				<a href='${pageContext.request.contextPath}/user/wall' id="challenge" class="btn btn-primary:active" >Wall</a>
+				<a href='${pageContext.request.contextPath}/user/mychallenges' id="challenge" class="btn btn-primary" >My Challenges</a>
+				<a href='${pageContext.request.contextPath}/login' id="challenge" class="btn btn-primary" >Logout</a>
 					
 				
 			</div>
@@ -66,7 +69,7 @@ body {
 	
 	
 	<div class="sticky-wrap">
-	<table class="sticky-enabled" style="margin: 0px; width: 100%;">
+	<table class="sticky-enabled" style="margin: 0px; width: 100%; font-size: 20px">
 	<thead>
 		<tr>
 			<th>Challenge</th>
